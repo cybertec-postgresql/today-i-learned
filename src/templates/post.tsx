@@ -3,6 +3,7 @@ import * as React from "react"
 
 import IPost from "../interfaces/IPost"
 
+import Container from "@material-ui/core/Container"
 import Layout from "../components/layout"
 import Post from "../components/post"
 
@@ -35,7 +36,9 @@ export default class extends React.Component<IPostPageProps, {}> {
 
     return (
       <Layout>
-        <Post post={post} />
+        <Container maxWidth="md">
+          <Post post={post} />
+        </Container>
       </Layout>
     )
   }
