@@ -5,8 +5,7 @@ import {
   makeStyles,
 } from "@material-ui/core/styles"
 
-import "normalize.css"
-
+import CssBaseline from "@material-ui/core/CssBaseline"
 import AppBar from "@material-ui/core/AppBar"
 import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
@@ -24,10 +23,13 @@ const theme = createMuiTheme({
       main: "#282f3a",
       dark: "#202630",
     },
+    background: {
+      default: "#282f3a",
+    },
   },
   typography: {
-    fontWeightRegular: 200,
-    fontWeightLight: 200,
+    fontWeightRegular: 300,
+    fontWeightLight: 300,
     fontWeightMedium: 300,
     fontWeightBold: 400,
   },
@@ -36,7 +38,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(() =>
   createStyles({
     footer: {
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.secondary.dark,
       color: theme.palette.secondary.contrastText,
     },
     footerLink: {
@@ -75,6 +77,7 @@ const Layout = ({ children }: { children: any }) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <AppBar position="static" color="default">
         <Toolbar>
           <Typography variant="h5" color="inherit">

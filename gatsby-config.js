@@ -8,6 +8,7 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     // Add typescript stack into webpack
     `gatsby-plugin-typescript`,
+    `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -30,6 +31,13 @@ module.exports = {
       options: {
         name: `assets`,
         path: `${__dirname}/content/assets/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `authors`,
+        path: `${__dirname}/content/authors/`,
       },
     },
     {

@@ -1,8 +1,10 @@
 ---
-title: "A Markdown example"
+title: A Markdown example
+date: 2019-08-21
+author: sascha.lampalzer@cybertec.at
+tags: ["Tag 1", "tag2", "tag3"]
+description: "This is an example"
 ---
-
-# An h1 header
 
 Paragraphs are separated by a blank line.
 

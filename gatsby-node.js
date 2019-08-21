@@ -35,3 +35,19 @@ exports.createPages = async function({ actions, graphql }) {
     })
   })
 }
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  const typeDefs = `
+    type MarkdownRemark implements Node {
+      frontmatter: Frontmatter
+    }
+    type Frontmatter {
+      author: AuthorsYaml @link(by: "email")
+    }
+    type AuthorsYaml implements Node {
+      posts: [MarkdownRemark] @link(by: "frontmatter.author.email", from: "email")
+    }
+  `
+  createTypes(typeDefs)
+}
