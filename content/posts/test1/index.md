@@ -2,7 +2,7 @@
 title: A Markdown example
 date: 2019-08-21
 author: sascha.lampalzer@cybertec.at
-tags: ["Tag 1", "tag2", "tag3"]
+tags: ["Short", "and a very long tag", "🙂"]
 description: "This is an example"
 ---
 

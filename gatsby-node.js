@@ -24,14 +24,70 @@ exports.createPages = async function({ actions, graphql }) {
           }
         }
       }
+      allAuthorsYaml {
+        nodes {
+          name
+          email
+          posts {
+            frontmatter {
+              title
+              date
+              author {
+                name
+                email
+              }
+              tags
+              description
+            }
+            wordCount {
+              words
+            }
+            html
+            excerpt
+            fields {
+              slug
+            }
+          }
+        }
+      }
     }
   `)
+
   data.allMarkdownRemark.edges.forEach(edge => {
     const slug = edge.node.fields.slug
     actions.createPage({
       path: slug,
       component: require.resolve(`./src/templates/post.tsx`),
       context: { slug: slug },
+    })
+  })
+
+  data.allAuthorsYaml.nodes.forEach(node => {
+    const author = {
+      name: node.name,
+      email: node.email,
+      posts: node.posts.map(post => {
+        return {
+          title: post.frontmatter.title,
+          wordCount: post.wordCount.words,
+          html: post.html,
+          excerpt: post.excerpt,
+          author: {
+            name: node.name,
+            email: node.email,
+          },
+          description: post.frontmatter.description,
+          tags: post.frontmatter.tags,
+          date: new Date(post.frontmatter.date),
+          slug: post.fields.slug,
+        }
+      }),
+    }
+
+    actions.createPage({
+      path: `/authors/${node.name}`,
+      component: require.resolve(`./src/templates/tag.tsx`),
+      context: { author: author },
     })
   })
 }

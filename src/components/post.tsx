@@ -4,9 +4,8 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
 import IPost from "../interfaces/IPost"
 import Paper from "@material-ui/core/Paper"
 import Typography from "@material-ui/core/Typography"
-import Divider from "@material-ui/core/Divider"
 import { Link } from "gatsby"
-import { Grid } from "@material-ui/core"
+import { Grid, Divider } from "@material-ui/core"
 import Chip from "@material-ui/core/Chip"
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,11 +26,26 @@ const useStyles = makeStyles((theme: Theme) =>
     postDate: {
       margin: theme.spacing(1, 0, 3),
     },
+    postTag: {
+      marginRight: theme.spacing(1),
+      fontWeight: theme.typography.fontWeightBold,
+    },
+    footerDivider: {
+      margin: theme.spacing(3, 0),
+    },
+    footerLink: {
+      color: theme.palette.secondary.dark,
+      fontWeight: theme.typography.fontWeightBold,
+    },
   })
 )
 
 const Post = ({ post }: { post: IPost }) => {
   const classes = useStyles()
+
+  if (typeof post.date === "string") {
+    post.date = new Date(post.date)
+  }
 
   return (
     <Paper className={classes.root} component="article" elevation={1}>
@@ -47,17 +61,36 @@ const Post = ({ post }: { post: IPost }) => {
           align="center"
           className={classes.postDate}
         >
-          {post.date.toDateString()}
+          {post.date.toLocaleDateString()}
         </Typography>
-        {/* <Divider variant="middle" /> */}
       </header>
       <div
         dangerouslySetInnerHTML={{ __html: post.html }}
         className="markdown-body"
       />
+      <Divider variant="middle" className={classes.footerDivider} />
       <footer>
-        <Grid>
-          <Grid item>Written by {post.author.name}</Grid>
+        <Grid container justify="space-between" alignItems="center">
+          <Grid item>
+            {post.tags.map(tag => (
+              <Chip
+                key="tag"
+                size="small"
+                label={tag}
+                color="primary"
+                className={classes.postTag}
+              />
+            ))}
+          </Grid>
+          <Grid item>
+            Written by{" "}
+            <Link
+              to={`/authors/${post.author.name}`}
+              className={classes.footerLink}
+            >
+              {post.author.name}
+            </Link>
+          </Grid>
         </Grid>
       </footer>
     </Paper>
