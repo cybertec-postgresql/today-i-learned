@@ -1,5 +1,10 @@
 import * as React from "react"
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
+import {
+  createMuiTheme,
+  createStyles,
+  makeStyles,
+  Theme,
+} from "@material-ui/core/styles"
 
 import "normalize.css"
 
@@ -8,6 +13,22 @@ import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
+import { Link, StaticQuery } from "gatsby"
+import { ThemeProvider } from "@material-ui/styles"
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#48c6f1",
+    },
+  },
+  typography: {
+    fontWeightRegular: 200,
+    fontWeightLight: 400,
+    fontWeightMedium: 300,
+    fontWeightBold: 400,
+  },
+})
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,21 +36,65 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.text.primary,
     },
+    footerLink: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
+    header: {},
+    headerTitle: {
+      color: theme.palette.text.primary,
+      textDecoration: "none",
+      display: "flex",
+      alignItems: "center",
+    },
+    headerLogo: {
+      height: theme.typography.h6.fontSize,
+    },
+    headerLeftSpace: {
+      marginLeft: theme.spacing(1),
+    },
   })
 )
 
 const Layout = ({ children }: { children: any }) => {
   const classes = useStyles()
+  const footerLinks = [
+    {
+      text: "Imprint",
+    },
+    {
+      text: "Contact",
+    },
+    {
+      text: "Privacy",
+    },
+  ]
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <AppBar position="static" color="default">
         <Toolbar>
-          <Typography variant="h6" color="inherit">
-            Today I Learned
-          </Typography>
-          <Typography variant="h6" color="inherit">
-            @Cybertec
+          <Typography variant="h5" color="inherit">
+            <Link to="/" className={classes.headerTitle}>
+              <span>Today I Learned</span>
+              <span className={classes.headerLeftSpace}>@</span>
+              <StaticQuery
+                query={graphql`
+                  query LayoutQuery {
+                    file(relativePath: { eq: "Logo.svg" }) {
+                      publicURL
+                    }
+                  }
+                `}
+                render={data => (
+                  <img
+                    src={data.file.publicURL}
+                    className={classes.headerLogo}
+                    placeholder="Cybertec"
+                  />
+                )}
+              />
+            </Link>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -37,20 +102,32 @@ const Layout = ({ children }: { children: any }) => {
       <footer className={classes.footer}>
         <Container maxWidth="lg">
           <Grid container justify="space-between">
-            <Grid item={true}>
+            <Grid item>
               <Typography variant="h6" component="p">
                 &copy; 2019 Cybertec Schönig & Schönig GmbH
               </Typography>
             </Grid>
-            <Grid item={true}>
-              <Typography variant="h6" component="p">
-                Stuff later
-              </Typography>{" "}
+            <Grid item>
+              <Grid container justify="space-evenly">
+                {footerLinks.map(item => {
+                  return (
+                    <Grid item key={item.text}>
+                      <Typography
+                        className={classes.footerLink}
+                        variant="h6"
+                        component="p"
+                      >
+                        {item.text}
+                      </Typography>
+                    </Grid>
+                  )
+                })}
+              </Grid>
             </Grid>
           </Grid>
         </Container>
       </footer>
-    </div>
+    </ThemeProvider>
   )
 }
 
