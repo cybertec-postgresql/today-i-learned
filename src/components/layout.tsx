@@ -3,7 +3,6 @@ import {
   createMuiTheme,
   createStyles,
   makeStyles,
-  Theme,
 } from "@material-ui/core/styles"
 
 import "normalize.css"
@@ -13,28 +12,32 @@ import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
-import { Link, StaticQuery } from "gatsby"
+import { Link, StaticQuery, graphql } from "gatsby"
 import { ThemeProvider } from "@material-ui/styles"
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#48c6f1",
+      main: "#38bde9",
+    },
+    secondary: {
+      main: "#282f3a",
+      dark: "#202630",
     },
   },
   typography: {
     fontWeightRegular: 200,
-    fontWeightLight: 400,
+    fontWeightLight: 200,
     fontWeightMedium: 300,
     fontWeightBold: 400,
   },
 })
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     footer: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.contrastText,
     },
     footerLink: {
       paddingLeft: theme.spacing(1),
@@ -101,7 +104,7 @@ const Layout = ({ children }: { children: any }) => {
       {children}
       <footer className={classes.footer}>
         <Container maxWidth="lg">
-          <Grid container justify="space-between">
+          <Grid container justify="space-between" alignItems="center">
             <Grid item>
               <Typography variant="h6" component="p">
                 &copy; 2019 Cybertec Schönig & Schönig GmbH
