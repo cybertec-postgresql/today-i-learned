@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography"
 import { Link, StaticQuery, graphql } from "gatsby"
 import { ThemeProvider } from "@material-ui/styles"
 import { Favorite } from "@material-ui/icons"
+import Box from "@material-ui/core/Box"
 
 const theme = createMuiTheme({
   palette: {
@@ -38,9 +39,16 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles(() =>
   createStyles({
+    root: {
+      minHeight: "100vh",
+      position: "relative",
+    },
     footer: {
       backgroundColor: theme.palette.secondary.dark,
       color: theme.palette.secondary.contrastText,
+      position: "absolute",
+      bottom: "0",
+      width: "100%",
     },
     footerLink: {
       paddingLeft: theme.spacing(1),
@@ -93,78 +101,80 @@ const Layout = ({ children }: { children: any }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="static" color="default">
-        <Toolbar>
-          <Typography variant="h5" color="inherit">
-            <Link to="/" className={classes.headerTitle}>
-              <span>Today I Learned</span>
-              <span className={classes.headerLeftSpace}>@</span>
-              <StaticQuery
-                query={graphql`
-                  query LayoutQuery {
-                    file(relativePath: { eq: "Logo.svg" }) {
-                      publicURL
+      <Box className={classes.root}>
+        <AppBar position="static" color="default">
+          <Toolbar>
+            <Typography variant="h5" color="inherit">
+              <Link to="/" className={classes.headerTitle}>
+                <span>Today I Learned</span>
+                <span className={classes.headerLeftSpace}>@</span>
+                <StaticQuery
+                  query={graphql`
+                    query LayoutQuery {
+                      file(relativePath: { eq: "Logo.svg" }) {
+                        publicURL
+                      }
                     }
-                  }
-                `}
-                render={data => (
-                  <img
-                    src={data.file.publicURL}
-                    className={classes.headerLogo}
-                    placeholder="Cybertec"
-                  />
+                  `}
+                  render={data => (
+                    <img
+                      src={data.file.publicURL}
+                      className={classes.headerLogo}
+                      placeholder="Cybertec"
+                    />
+                  )}
+                />
+              </Link>
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Box paddingBottom="32px">{children}</Box>
+        <footer className={classes.footer}>
+          <Container maxWidth="lg">
+            <Grid container justify="space-between" alignItems="center">
+              <Grid
+                item
+                className={classes.footerAuthor}
+                component={props => (
+                  <Typography variant="h6" component="p" {...props} />
                 )}
-              />
-            </Link>
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      {children}
-      <footer className={classes.footer}>
-        <Container maxWidth="lg">
-          <Grid container justify="space-between" alignItems="center">
-            <Grid
-              item
-              className={classes.footerAuthor}
-              component={props => (
-                <Typography variant="h6" component="p" {...props} />
-              )}
-            >
-              Made with <Favorite /> by &copy; 2019 Cybertec Schönig & Schönig
-              GmbH
-            </Grid>
-            <Grid item>
-              <Grid container>
-                {footerLinks.map(item => {
-                  const L = (props: any) =>
-                    item.extern ? (
-                      <a
-                        href={item.to}
-                        {...props}
-                        target="_blank"
-                        rel="noopener"
-                      />
-                    ) : (
-                      <Link to={item.to} {...props} />
-                    )
+              >
+                Made with <Favorite /> by &copy; 2019 Cybertec Schönig & Schönig
+                GmbH
+              </Grid>
+              <Grid item>
+                <Grid container>
+                  {footerLinks.map(item => {
+                    const L = (props: any) =>
+                      item.extern ? (
+                        <a
+                          href={item.to}
+                          {...props}
+                          target="_blank"
+                          rel="noopener"
+                        />
+                      ) : (
+                        <Link to={item.to} {...props} />
+                      )
 
-                  return (
-                    <Grid item key={item.text}>
-                      <Typography
-                        className={classes.footerLink}
-                        variant="h6"
-                        component={L}
-                      >
-                        {item.text}
-                      </Typography>
-                    </Grid>
-                  )
-                })}
+                    return (
+                      <Grid item key={item.text}>
+                        <Typography
+                          className={classes.footerLink}
+                          variant="h6"
+                          component={L}
+                        >
+                          {item.text}
+                        </Typography>
+                      </Grid>
+                    )
+                  })}
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Container>
-      </footer>
+          </Container>
+        </footer>
+      </Box>
     </ThemeProvider>
   )
 }
