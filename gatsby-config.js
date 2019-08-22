@@ -1,6 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Typescript Starter`,
+    title: `Today I learned @Cybertec`,
+    siteUrl: `https://til.cybertec-postgresql.com`,
+    description: "Temporary",
   },
   plugins: [
     `gatsby-plugin-sharp`,
@@ -70,6 +72,78 @@ module.exports = {
             },
           },
           `gatsby-remark-copy-linked-files`,
+        ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Today I learned @Cybertec`,
+        short_name: `TIL@Cybertec`,
+        start_url: `/`,
+        background_color: `#282f3a`,
+        theme_color: `#3cbde9`,
+        display: `standalone`,
+      },
+    },
+    `gatsby-plugin-offline`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.frontmatter.date,
+                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  custom_elements: [{ "content:encoded": edge.node.html }],
+                })
+              })
+            },
+            query: `
+            {
+              allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/posts/"}}, sort: {order: DESC, fields: [frontmatter___date]}) {
+                edges {
+                  node {
+                    excerpt
+                    html
+                    fields {
+                      slug
+                    }
+                    frontmatter {
+                      title
+                      date
+                    }
+                  }
+                }
+              }
+            }
+            
+            `,
+            output: "/rss.xml",
+            title: "Today I learned @Cybertec - RSS Feed",
+            // optional configuration to insert feed reference in pages:
+            // if `string` is used, it will be used to create RegExp and then test if pathname of
+            // current page satisfied this regular expression;
+            // if not provided or `undefined`, all pages will have feed reference inserted
+            match: "^/post/",
+          },
         ],
       },
     },
