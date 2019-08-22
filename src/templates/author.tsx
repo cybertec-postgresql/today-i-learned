@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 
 import IAuthor from "../interfaces/IAuthor"
 
+import { Helmet } from "react-helmet"
 import Container from "@material-ui/core/Container"
 import Layout from "../components/layout"
 import { Paper, Typography } from "@material-ui/core"
@@ -90,6 +91,21 @@ const AuthorPage = ({
 
   return (
     <Layout>
+      <Helmet>
+        <meta property="og:type" content="profile" />
+        <meta
+          property="profile:first_name"
+          content={author.name.split(" ")[0]}
+        />
+        <meta
+          property="profile:last_name"
+          content={author.name.split(" ")[1]}
+        />
+        <meta property="profile:username" content={author.email} />
+        <meta property="og:type" content="profile" />
+        <meta property="og:type" content="profile" />
+      </Helmet>
+
       <Container maxWidth="md" className={classes.root}>
         <Paper elevation={1} className={classes.authorPaper}>
           <Typography variant="h4" component="h1" align="center">

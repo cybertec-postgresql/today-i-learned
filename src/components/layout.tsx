@@ -1,4 +1,5 @@
 import * as React from "react"
+
 import {
   createMuiTheme,
   createStyles,
@@ -6,6 +7,7 @@ import {
 } from "@material-ui/core/styles"
 
 import CssBaseline from "@material-ui/core/CssBaseline"
+import { Helmet } from "react-helmet"
 import AppBar from "@material-ui/core/AppBar"
 import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
@@ -100,6 +102,44 @@ const Layout = ({ children }: { children: any }) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <StaticQuery
+        query={graphql`
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                twitter
+              }
+            }
+          }
+        `}
+        render={data => {
+          const siteMetadata = data.site.siteMetadata
+
+          return (
+            <Helmet>
+              <title>{siteMetadata.title}</title>
+              <meta name="description" content={siteMetadata.description} />
+
+              {/* <!-- Twitter Card data --> */}
+              <meta name="twitter:card" content="summary" />
+              <meta name="twitter:site" content={siteMetadata.twitter} />
+              <meta name="twitter:title" content={siteMetadata.title} />
+              <meta
+                name="twitter:description"
+                content={siteMetadata.description}
+              />
+
+              {/* <!-- Open Graph data --> */}
+              <meta property="og:locale" content="en_US" />
+              <meta property="og:site_name" content={siteMetadata.title} />
+            </Helmet>
+          )
+        }}
+      />
+
       <CssBaseline />
       <Box className={classes.root}>
         <AppBar position="static" color="default">

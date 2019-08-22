@@ -1,5 +1,6 @@
 import { graphql } from "gatsby"
 import * as React from "react"
+import { Helmet } from "react-helmet"
 
 import IPost from "../interfaces/IPost"
 import IAuthor from "../interfaces/IAuthor"
@@ -27,6 +28,12 @@ interface IPostPageProps {
         slug: string
       }
     }
+    site: {
+      siteMetadata: {
+        title: string
+        siteUrl: string
+      }
+    }
   }
 }
 
@@ -46,8 +53,36 @@ export default class extends React.Component<IPostPageProps, {}> {
       slug: this.props.data.markdownRemark.fields.slug,
     }
 
+    const siteUrl = this.props.data.site.siteMetadata.siteUrl
+
     return (
       <Layout>
+        <Helmet>
+          <link rel="canonical" href={siteUrl + post.slug} />
+
+          {/* <!-- Twitter Card data --> */}
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:title" content={post.title} />
+          <meta name="twitter:description" content={post.excerpt} />
+          <meta name="twitter:creator" content={post.author.twitter} />
+
+          {/* <!-- Open Graph data --> */}
+          <meta property="og:title" content={post.title} />
+          <meta property="og:type" content="article" />
+          <meta property="og:url" content={siteUrl + post.slug} />
+          <meta property="og:description" content={post.excerpt} />
+          <meta
+            property="article:published_time"
+            content={post.date.toISOString()}
+          />
+          <meta
+            property="article:author"
+            content={siteUrl + "/author/" + post.author.name}
+          />
+          {post.tags.map(tag => (
+            <meta key={tag} property="article:tag" content={tag} />
+          ))}
+        </Helmet>
         <Container maxWidth="md">
           <Post post={post} />
         </Container>
@@ -76,6 +111,12 @@ export const query = graphql`
       excerpt
       fields {
         slug
+      }
+    }
+    site {
+      siteMetadata {
+        title
+        siteUrl
       }
     }
   }

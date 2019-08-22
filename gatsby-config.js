@@ -3,6 +3,7 @@ module.exports = {
     title: `Today I learned @Cybertec`,
     siteUrl: `https://til.cybertec-postgresql.com`,
     description: "Temporary",
+    twitter: "@PostgresSupport",
   },
   plugins: [
     `gatsby-plugin-sharp`,
