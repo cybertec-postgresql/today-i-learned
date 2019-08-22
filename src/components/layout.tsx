@@ -13,6 +13,7 @@ import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import { Link, StaticQuery, graphql } from "gatsby"
 import { ThemeProvider } from "@material-ui/styles"
+import { Favorite } from "@material-ui/icons"
 
 const theme = createMuiTheme({
   palette: {
@@ -58,6 +59,15 @@ const useStyles = makeStyles(() =>
     },
     headerLeftSpace: {
       marginLeft: theme.spacing(1),
+    },
+    footerAuthor: {
+      display: "flex",
+      alignItems: "center",
+      "& svg": {
+        color: theme.palette.error.main,
+        margin: theme.spacing(0, 1),
+        fontSize: theme.typography.h6.fontSize,
+      },
     },
   })
 )
@@ -113,13 +123,18 @@ const Layout = ({ children }: { children: any }) => {
       <footer className={classes.footer}>
         <Container maxWidth="lg">
           <Grid container justify="space-between" alignItems="center">
-            <Grid item>
-              <Typography variant="h6" component="p">
-                &copy; 2019 Cybertec Schönig & Schönig GmbH
-              </Typography>
+            <Grid
+              item
+              className={classes.footerAuthor}
+              component={props => (
+                <Typography variant="h6" component="p" {...props} />
+              )}
+            >
+              Made with <Favorite /> by &copy; 2019 Cybertec Schönig & Schönig
+              GmbH
             </Grid>
             <Grid item>
-              <Grid container justify="space-evenly">
+              <Grid container>
                 {footerLinks.map(item => {
                   const L = (props: any) =>
                     item.extern ? (
