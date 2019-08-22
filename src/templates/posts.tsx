@@ -77,8 +77,8 @@ const PostsPage = ({
 
 export default PostsPage
 
-export const pageQuery = graphql`
-  query pageQuery($skip: Int!, $limit: Int!) {
+export const postPageQuery = graphql`
+  query postPageQuery($skip: Int!, $limit: Int!) {
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
       limit: $limit

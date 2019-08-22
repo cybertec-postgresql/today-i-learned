@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     postTag: {
       marginRight: theme.spacing(1),
       fontWeight: theme.typography.fontWeightBold,
+      cursor: "pointer",
     },
     footerDivider: {
       margin: theme.spacing(3, 0),
@@ -72,20 +73,25 @@ const Post = ({ post }: { post: IPost }) => {
       <footer>
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
-            {post.tags.map(tag => (
-              <Chip
-                key="tag"
-                size="small"
-                label={tag}
-                color="primary"
-                className={classes.postTag}
-              />
-            ))}
+            {post.tags.map(tag => {
+              const L = (props: any) => <Link to={"/tag/" + tag} {...props} />
+
+              return (
+                <Chip
+                  component={L}
+                  key="tag"
+                  size="small"
+                  label={tag}
+                  color="primary"
+                  className={classes.postTag}
+                />
+              )
+            })}
           </Grid>
           <Grid item>
             Written by{" "}
             <Link
-              to={`/authors/${post.author.name}`}
+              to={`/author/${post.author.name}`}
               className={classes.footerLink}
             >
               {post.author.name}

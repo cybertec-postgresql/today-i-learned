@@ -1,14 +1,13 @@
 import * as React from "react"
-import { graphql } from "gatsby"
-
-import IAuthor from "../interfaces/IAuthor"
-
-import Container from "@material-ui/core/Container"
 import Layout from "../components/layout"
-import { Paper, Typography } from "@material-ui/core"
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
+import IAuthor from "../interfaces/IAuthor"
+import IPost from "../interfaces/IPost"
+import Container from "@material-ui/core/Container"
+import Paper from "@material-ui/core/Paper"
+import Typography from "@material-ui/core/Typography"
 import PostList from "../components/postList"
 import Pagination from "../components/pagination"
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,13 +15,13 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(4),
       marginTop: theme.spacing(4),
     },
-    authorPaper: {
+    tagPaper: {
       padding: theme.spacing(2),
     },
   })
 )
 
-interface IAuthorPageProps {
+interface ITagPageProps {
   allMarkdownRemark: {
     edges: [
       {
@@ -46,33 +45,25 @@ interface IAuthorPageProps {
       }
     ]
   }
-  authorsYaml: {
-    name: string
-    email: string
-  }
 }
 
-interface IAuthorPageContext {
+interface ITagPageContext {
   limit: number
   skip: number
   numPages: number
   currentPage: number
-  email: number
+  tag: string
 }
 
-const AuthorPage = ({
+const TagPage = ({
   data,
   pageContext,
 }: {
-  data: IAuthorPageProps
-  pageContext: IAuthorPageContext
+  data: ITagPageProps
+  pageContext: ITagPageContext
 }) => {
   const classes = useStyles()
-  const author: IAuthor = {
-    name: data.authorsYaml.name,
-    email: data.authorsYaml.email,
-  }
-  const posts = data.allMarkdownRemark.edges.map(post => {
+  const posts: IPost[] = data.allMarkdownRemark.edges.map(post => {
     return {
       excerpt: post.node.excerpt,
       html: post.node.html,
@@ -86,14 +77,14 @@ const AuthorPage = ({
     }
   })
 
-  const { currentPage, numPages } = pageContext
+  const { currentPage, numPages, tag } = pageContext
 
   return (
     <Layout>
       <Container maxWidth="md" className={classes.root}>
-        <Paper elevation={1} className={classes.authorPaper}>
+        <Paper elevation={1} className={classes.tagPaper}>
           <Typography variant="h4" component="h1" align="center">
-            Posts by {author.name}
+            Posts tagged "{pageContext.tag}"
           </Typography>
         </Paper>
       </Container>
@@ -101,22 +92,22 @@ const AuthorPage = ({
       <Pagination
         currentPage={currentPage}
         numPages={numPages}
-        indexPath={"/author/" + author.name}
-        basePath={"/author/" + author.name + "/"}
+        indexPath={"/tag/" + tag}
+        basePath={"/tag/" + tag + "/"}
       />
     </Layout>
   )
 }
 
-export default AuthorPage
+export default TagPage
 
-export const AuthorPageQuery = graphql`
-  query AuthorPageQuery($skip: Int!, $limit: Int!, $email: String!) {
+export const TagPageQuery = graphql`
+  query TagPageQuery($skip: Int!, $limit: Int!, $tag: String!) {
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
       limit: $limit
       skip: $skip
-      filter: { frontmatter: { author: { email: { eq: $email } } } }
+      filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
       edges {
         node {
@@ -140,10 +131,6 @@ export const AuthorPageQuery = graphql`
           }
         }
       }
-    }
-    authorsYaml(email: { eq: $email }) {
-      name
-      email
     }
   }
 `

@@ -23,6 +23,16 @@ exports.createPages = async function({ actions, graphql }) {
             }
           }
         }
+        group(field: frontmatter___tags) {
+          fieldValue
+          edges {
+            node {
+              fields {
+                slug
+              }
+            }
+          }
+        }
       }
       allAuthorsYaml {
         nodes {
@@ -54,7 +64,7 @@ exports.createPages = async function({ actions, graphql }) {
   `)
 
   const posts = data.allMarkdownRemark.edges
-  const postsPerPage = 1
+  const postsPerPage = 5
   const numPages = Math.ceil(posts.length / postsPerPage)
 
   Array.from({ length: numPages }).forEach((_, i) => {
@@ -79,45 +89,47 @@ exports.createPages = async function({ actions, graphql }) {
     })
   })
 
-  // let tags = {}
-  // data.allMarkdownRemark.edges.forEach(edge => {
-  //   edge.node.frontmatter.tags.forEach(tag => {
-  //     if (!tags[tag]) {
-  //       actions.createPage({
-  //         path: `/tags/${tag}`,
-  //         component: require.resolve(`./src/templates/tag.tsx`),
-  //         context: { tag: tag },
-  //       })
-  //     }
-  //   })
-  // })
+  data.allMarkdownRemark.group.forEach(tag => {
+    const posts = tag.edges
+    const numPages = Math.ceil(posts.length / postsPerPage)
+    const tagname = tag.fieldValue
+
+    Array.from({ length: numPages }).forEach((_, i) => {
+      actions.createPage({
+        path: `/tag/${tagname}` + (i === 0 ? `` : `/${i + 1}`),
+        component: require.resolve(`./src/templates/tag.tsx`),
+        context: {
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          numPages,
+          currentPage: i + 1,
+          tag: tagname,
+        },
+      })
+    })
+  })
 
   data.allAuthorsYaml.nodes.forEach(node => {
+    const posts = node.posts
+    const numPages = Math.ceil(posts.length / postsPerPage)
+
     const author = {
-      name: node.name,
       email: node.email,
-      posts: node.posts.map(post => {
-        return {
-          title: post.frontmatter.title,
-          wordCount: post.wordCount.words,
-          html: post.html,
-          excerpt: post.excerpt,
-          author: {
-            name: node.name,
-            email: node.email,
-          },
-          description: post.frontmatter.description,
-          tags: post.frontmatter.tags,
-          date: new Date(post.frontmatter.date),
-          slug: post.fields.slug,
-        }
-      }),
+      name: node.name,
     }
 
-    actions.createPage({
-      path: `/author/${node.name}`,
-      component: require.resolve(`./src/templates/author.tsx`),
-      context: { author: author },
+    Array.from({ length: numPages }).forEach((_, i) => {
+      actions.createPage({
+        path: `/author/${author.name}` + (i === 0 ? `` : `/${i + 1}`),
+        component: require.resolve(`./src/templates/author.tsx`),
+        context: {
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          numPages,
+          currentPage: i + 1,
+          email: author.email,
+        },
+      })
     })
   })
 }

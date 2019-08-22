@@ -8,6 +8,17 @@ import ChevronRight from "@material-ui/icons/ChevronRight"
 import FirstPage from "@material-ui/icons/FirstPage"
 import LastPage from "@material-ui/icons/LastPage"
 import { Paper, Container } from "@material-ui/core"
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      marginBottom: theme.spacing(4),
+      marginTop: theme.spacing(4),
+      fontWeight: theme.typography.fontWeightBold,
+    },
+  })
+)
 
 interface IPaginationProps {
   currentPage: number
@@ -17,6 +28,7 @@ interface IPaginationProps {
 }
 
 const Pagination = (paginationProps: IPaginationProps) => {
+  const classes = useStyles()
   const { currentPage, numPages, indexPath, basePath } = paginationProps
 
   const FirstPageLink = (props: any) => <Link to={indexPath} {...props} />
@@ -34,7 +46,7 @@ const Pagination = (paginationProps: IPaginationProps) => {
   )
 
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="xs" className={classes.root}>
       <Paper>
         <BottomNavigation showLabels>
           <BottomNavigationAction
