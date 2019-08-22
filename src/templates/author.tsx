@@ -26,7 +26,7 @@ interface ITagProps {
   }
 }
 
-const TagPage = ({ pageContext }: ITagProps) => {
+const AuthorPage = ({ pageContext }: ITagProps) => {
   const classes = useStyles()
   const author = pageContext.author
 
@@ -38,10 +38,10 @@ const TagPage = ({ pageContext }: ITagProps) => {
             Posts by {author.name}
           </Typography>
         </Paper>
-        <PostList posts={author.posts ? author.posts : []} />
       </Container>
+      <PostList posts={author.posts ? author.posts : []} />
     </Layout>
   )
 }
 
-export default TagPage
+export default AuthorPage

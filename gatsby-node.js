@@ -7,7 +7,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: `slug`,
-      value: "/posts" + slug,
+      value: "/post" + slug,
     })
   }
 }
@@ -53,6 +53,23 @@ exports.createPages = async function({ actions, graphql }) {
     }
   `)
 
+  const posts = data.allMarkdownRemark.edges
+  const postsPerPage = 1
+  const numPages = Math.ceil(posts.length / postsPerPage)
+
+  Array.from({ length: numPages }).forEach((_, i) => {
+    actions.createPage({
+      path: i === 0 ? "/" : `/posts/${i + 1}`,
+      component: require.resolve(`./src/templates/posts.tsx`),
+      context: {
+        limit: postsPerPage,
+        skip: i * postsPerPage,
+        numPages,
+        currentPage: i + 1,
+      },
+    })
+  })
+
   data.allMarkdownRemark.edges.forEach(edge => {
     const slug = edge.node.fields.slug
     actions.createPage({
@@ -61,6 +78,19 @@ exports.createPages = async function({ actions, graphql }) {
       context: { slug: slug },
     })
   })
+
+  // let tags = {}
+  // data.allMarkdownRemark.edges.forEach(edge => {
+  //   edge.node.frontmatter.tags.forEach(tag => {
+  //     if (!tags[tag]) {
+  //       actions.createPage({
+  //         path: `/tags/${tag}`,
+  //         component: require.resolve(`./src/templates/tag.tsx`),
+  //         context: { tag: tag },
+  //       })
+  //     }
+  //   })
+  // })
 
   data.allAuthorsYaml.nodes.forEach(node => {
     const author = {
@@ -85,8 +115,8 @@ exports.createPages = async function({ actions, graphql }) {
     }
 
     actions.createPage({
-      path: `/authors/${node.name}`,
-      component: require.resolve(`./src/templates/tag.tsx`),
+      path: `/author/${node.name}`,
+      component: require.resolve(`./src/templates/author.tsx`),
       context: { author: author },
     })
   })

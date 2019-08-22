@@ -5,10 +5,11 @@
   "author": "Alexander Lampalzer <sascha.lampalzer@cybertec.at>",
   "dependencies": {
     "@material-ui/core": "^4.3.2",
+    "@material-ui/icons": "^4.2.1",
     "@types/node": "^12.7.2",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
-    "gatsby": "^2.13.70",
+    "gatsby": "2.13.70",
     "gatsby-link": "^2.2.5",
     "gatsby-plugin-react-helmet": "^3.1.3",
     "gatsby-plugin-sharp": "^2.2.13",
