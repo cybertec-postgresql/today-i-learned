@@ -15,7 +15,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = async function({ actions, graphql }) {
   const { data } = await graphql(`
     query {
-      allMarkdownRemark {
+      allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/posts/" } }) {
         edges {
           node {
             fields {
@@ -64,7 +64,7 @@ exports.createPages = async function({ actions, graphql }) {
   `)
 
   const posts = data.allMarkdownRemark.edges
-  const postsPerPage = 5
+  const postsPerPage = 1
   const numPages = Math.ceil(posts.length / postsPerPage)
 
   Array.from({ length: numPages }).forEach((_, i) => {

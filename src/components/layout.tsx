@@ -44,6 +44,7 @@ const useStyles = makeStyles(() =>
     footerLink: {
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
+      color: theme.palette.secondary.contrastText,
     },
     header: {},
     headerTitle: {
@@ -66,12 +67,16 @@ const Layout = ({ children }: { children: any }) => {
   const footerLinks = [
     {
       text: "Imprint",
+      to: "/imprint",
     },
     {
       text: "Contact",
+      to: "https://www.cybertec-postgresql.com/en/contact/",
+      extern: true,
     },
     {
       text: "Privacy",
+      to: "/privacy",
     },
   ]
 
@@ -116,12 +121,24 @@ const Layout = ({ children }: { children: any }) => {
             <Grid item>
               <Grid container justify="space-evenly">
                 {footerLinks.map(item => {
+                  const L = (props: any) =>
+                    item.extern ? (
+                      <a
+                        href={item.to}
+                        {...props}
+                        target="_blank"
+                        rel="noopener"
+                      />
+                    ) : (
+                      <Link to={item.to} {...props} />
+                    )
+
                   return (
                     <Grid item key={item.text}>
                       <Typography
                         className={classes.footerLink}
                         variant="h6"
-                        component="p"
+                        component={L}
                       >
                         {item.text}
                       </Typography>

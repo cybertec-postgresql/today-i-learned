@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography"
 import PostList from "../components/postList"
 import Pagination from "../components/pagination"
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
+import { graphql } from "gatsby"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -107,7 +108,10 @@ export const TagPageQuery = graphql`
       sort: { fields: [frontmatter___date], order: DESC }
       limit: $limit
       skip: $skip
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: {
+        frontmatter: { tags: { in: [$tag] } }
+        fileAbsolutePath: { regex: "/posts/" }
+      }
     ) {
       edges {
         node {

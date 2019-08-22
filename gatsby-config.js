@@ -6,9 +6,9 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-react-helmet`,
-    // Add typescript stack into webpack
     `gatsby-plugin-typescript`,
     `gatsby-transformer-yaml`,
+    `gatsby-remark-copy-linked-files`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -41,6 +41,20 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `imprint`,
+        path: `${__dirname}/content/imprint/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `privacy`,
+        path: `${__dirname}/content/privacy/`,
+      },
+    },
+    {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
@@ -55,6 +69,7 @@ module.exports = {
               languageExtensions: [],
             },
           },
+          `gatsby-remark-copy-linked-files`,
         ],
       },
     },

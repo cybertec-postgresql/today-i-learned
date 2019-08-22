@@ -116,7 +116,10 @@ export const AuthorPageQuery = graphql`
       sort: { fields: [frontmatter___date], order: DESC }
       limit: $limit
       skip: $skip
-      filter: { frontmatter: { author: { email: { eq: $email } } } }
+      filter: {
+        frontmatter: { author: { email: { eq: $email } } }
+        fileAbsolutePath: { regex: "/posts/" }
+      }
     ) {
       edges {
         node {
