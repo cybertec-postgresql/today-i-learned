@@ -1,5 +1,6 @@
 # Temporary
 *.pdf
+content/**
 
 # Logs
 logs

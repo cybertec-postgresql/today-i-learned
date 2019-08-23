@@ -47,6 +47,7 @@ export default class extends React.Component<IPostPageProps, {}> {
       html: this.props.data.markdownRemark.html,
       title: this.props.data.markdownRemark.frontmatter.title,
       wordCount: this.props.data.markdownRemark.wordCount.words,
+      description: this.props.data.markdownRemark.frontmatter.description,
       tags: this.props.data.markdownRemark.frontmatter.tags,
       date: new Date(this.props.data.markdownRemark.frontmatter.date),
       author: this.props.data.markdownRemark.frontmatter.author,
@@ -63,14 +64,20 @@ export default class extends React.Component<IPostPageProps, {}> {
           {/* <!-- Twitter Card data --> */}
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:title" content={post.title} />
-          <meta name="twitter:description" content={post.excerpt} />
+          <meta
+            name="twitter:description"
+            content={post.description ? post.description : post.excerpt}
+          />
           <meta name="twitter:creator" content={post.author.twitter} />
 
           {/* <!-- Open Graph data --> */}
           <meta property="og:title" content={post.title} />
           <meta property="og:type" content="article" />
           <meta property="og:url" content={siteUrl + post.slug} />
-          <meta property="og:description" content={post.excerpt} />
+          <meta
+            property="og:description"
+            content={post.description ? post.description : post.excerpt}
+          />
           <meta
             property="article:published_time"
             content={post.date.toISOString()}
