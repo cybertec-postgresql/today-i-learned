@@ -31,19 +31,24 @@ const Pagination = (paginationProps: IPaginationProps) => {
   const classes = useStyles()
   const { currentPage, numPages, indexPath, basePath } = paginationProps
 
-  const FirstPageLink = (props: any) => <Link to={indexPath} {...props} />
-  const PreviousPageLink = (props: any) => (
+  const FirstPageLink = React.forwardRef((props: any, ref: any) => (
+    <Link to={indexPath} {...props} ref={ref} />
+  ))
+
+  const PreviousPageLink = React.forwardRef((props: any, ref: any) => (
     <Link
       to={currentPage > 2 ? basePath + (currentPage - 1) : indexPath}
       {...props}
+      ref={ref}
     />
-  )
-  const NextPageLink = (props: any) => (
-    <Link to={basePath + (currentPage + 1)} {...props} />
-  )
-  const LastPageLink = (props: any) => (
-    <Link to={basePath + numPages} {...props} />
-  )
+  ))
+
+  const NextPageLink = React.forwardRef((props: any, ref: any) => (
+    <Link to={basePath + (currentPage + 1)} {...props} ref={ref} />
+  ))
+  const LastPageLink = React.forwardRef((props: any, ref: any) => (
+    <Link to={basePath + numPages} {...props} ref={ref} />
+  ))
 
   return (
     <Container maxWidth="xs" className={classes.root}>

@@ -74,12 +74,12 @@ const Post = ({ post }: { post: IPost }) => {
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
             {post.tags.map(tag => {
-              const L = (props: any) => <Link to={"/tag/" + tag} {...props} />
-
               return (
                 <Chip
-                  component={L}
-                  key="tag"
+                  component={React.forwardRef((props: any, ref: any) => (
+                    <Link to={"/tag/" + tag} {...props} ref={ref} />
+                  ))}
+                  key={tag}
                   size="small"
                   label={tag}
                   color="primary"

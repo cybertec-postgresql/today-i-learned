@@ -13,7 +13,7 @@ import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
-import { Link, StaticQuery, graphql } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 import { ThemeProvider } from "@material-ui/styles"
 import { Favorite } from "@material-ui/icons"
 import Box from "@material-ui/core/Box"
@@ -82,6 +82,20 @@ const useStyles = makeStyles(() =>
   })
 )
 
+interface ILayoutPageQuery {
+  site: {
+    siteMetadata: {
+      title: string
+      description: string
+      siteUrl: string
+      twitter: string
+    }
+  }
+  file: {
+    publicURL: string
+  }
+}
+
 const Layout = ({ children }: { children: any }) => {
   const classes = useStyles()
   const footerLinks = [
@@ -100,45 +114,40 @@ const Layout = ({ children }: { children: any }) => {
     },
   ]
 
+  const data: ILayoutPageQuery = useStaticQuery(graphql`
+    query LayoutPageQuery {
+      site {
+        siteMetadata {
+          title
+          description
+          siteUrl
+          twitter
+        }
+      }
+      file(relativePath: { eq: "Logo.svg" }) {
+        publicURL
+      }
+    }
+  `)
+  const siteMetadata = data.site.siteMetadata
+
   return (
     <ThemeProvider theme={theme}>
-      <StaticQuery
-        query={graphql`
-          {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-                twitter
-              }
-            }
-          }
-        `}
-        render={data => {
-          const siteMetadata = data.site.siteMetadata
+      <Helmet>
+        <title>{siteMetadata.title}</title>
+        <meta name="description" content={siteMetadata.description} />
+        <html lang="en" />
 
-          return (
-            <Helmet>
-              <title>{siteMetadata.title}</title>
-              <meta name="description" content={siteMetadata.description} />
+        {/* <!-- Twitter Card data --> */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content={siteMetadata.twitter} />
+        <meta name="twitter:title" content={siteMetadata.title} />
+        <meta name="twitter:description" content={siteMetadata.description} />
 
-              {/* <!-- Twitter Card data --> */}
-              <meta name="twitter:card" content="summary" />
-              <meta name="twitter:site" content={siteMetadata.twitter} />
-              <meta name="twitter:title" content={siteMetadata.title} />
-              <meta
-                name="twitter:description"
-                content={siteMetadata.description}
-              />
-
-              {/* <!-- Open Graph data --> */}
-              <meta property="og:locale" content="en_US" />
-              <meta property="og:site_name" content={siteMetadata.title} />
-            </Helmet>
-          )
-        }}
-      />
+        {/* <!-- Open Graph data --> */}
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content={siteMetadata.title} />
+      </Helmet>
 
       <CssBaseline />
       <Box className={classes.root}>
@@ -148,21 +157,11 @@ const Layout = ({ children }: { children: any }) => {
               <Link to="/" className={classes.headerTitle}>
                 <span>Today I Learned</span>
                 <span className={classes.headerLeftSpace}>@</span>
-                <StaticQuery
-                  query={graphql`
-                    query LayoutQuery {
-                      file(relativePath: { eq: "Logo.svg" }) {
-                        publicURL
-                      }
-                    }
-                  `}
-                  render={data => (
-                    <img
-                      src={data.file.publicURL}
-                      className={classes.headerLogo}
-                      placeholder="Cybertec"
-                    />
-                  )}
+                <img
+                  src={data.file.publicURL}
+                  className={classes.headerLogo}
+                  placeholder="Cybertec"
+                  alt="Cybertec"
                 />
               </Link>
             </Typography>
