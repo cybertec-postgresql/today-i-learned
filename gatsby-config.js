@@ -12,6 +12,7 @@ module.exports = {
     `gatsby-plugin-typescript`,
     `gatsby-transformer-yaml`,
     `gatsby-remark-copy-linked-files`,
+    `gatsby-plugin-material-ui`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
