@@ -9,6 +9,7 @@ import PostList from "../components/postList"
 import Pagination from "../components/pagination"
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
 import { graphql } from "gatsby"
+import { Helmet } from "react-helmet"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -82,6 +83,19 @@ const TagPage = ({
 
   return (
     <Layout>
+      <Helmet>
+        <title>Posts tagged "{pageContext.tag}"</title>
+        {/* <!-- Twitter Card data --> */}
+        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:title"
+          content={`Posts tagged "${pageContext.tag}"`}
+        />
+        <meta
+          name="twitter:description"
+          content={`À list of all posts tagged with "${pageContext.tag}".`}
+        />{" "}
+      </Helmet>
       <Container maxWidth="md" className={classes.root}>
         <Paper elevation={1} className={classes.tagPaper}>
           <Typography variant="h4" component="h1" align="center">

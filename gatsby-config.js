@@ -2,7 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `Today I learned @Cybertec`,
     siteUrl: `https://til.cybertec-postgresql.com`,
-    description: "Temporary",
+    description:
+      "Today I learned is a collection of short posts, mostly about weird stuff we found while working.",
     twitter: "@PostgresSupport",
   },
   plugins: [

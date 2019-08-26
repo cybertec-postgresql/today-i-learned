@@ -71,6 +71,7 @@ const PostPage = ({ data }: IPostPageProps) => {
     <Layout>
       <Helmet>
         <link rel="canonical" href={siteUrl + post.slug} />
+        <title>{post.title}</title>
 
         {/* <!-- Twitter Card data --> */}
         <meta name="twitter:card" content="summary" />
