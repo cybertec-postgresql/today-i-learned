@@ -31,24 +31,43 @@ const Pagination = (paginationProps: IPaginationProps) => {
   const classes = useStyles()
   const { currentPage, numPages, indexPath, basePath } = paginationProps
 
-  const FirstPageLink = React.forwardRef((props: any, ref: any) => (
-    <Link to={indexPath} {...props} ref={ref} />
-  ))
+  const FirstPageLink = React.forwardRef((props: any, ref: any) => {
+    if (currentPage === 1) {
+      return <span />
+    } else {
+      return <Link to={indexPath} {...props} ref={ref} />
+    }
+  })
 
-  const PreviousPageLink = React.forwardRef((props: any, ref: any) => (
-    <Link
-      to={currentPage > 2 ? basePath + (currentPage - 1) : indexPath}
-      {...props}
-      ref={ref}
-    />
-  ))
+  const PreviousPageLink = React.forwardRef((props: any, ref: any) => {
+    if (currentPage === 1) {
+      return <span />
+    } else {
+      return (
+        <Link
+          to={currentPage > 2 ? basePath + (currentPage - 1) : indexPath}
+          {...props}
+          ref={ref}
+        />
+      )
+    }
+  })
 
-  const NextPageLink = React.forwardRef((props: any, ref: any) => (
-    <Link to={basePath + (currentPage + 1)} {...props} ref={ref} />
-  ))
-  const LastPageLink = React.forwardRef((props: any, ref: any) => (
-    <Link to={basePath + numPages} {...props} ref={ref} />
-  ))
+  const NextPageLink = React.forwardRef((props: any, ref: any) => {
+    if (currentPage === numPages) {
+      return <span />
+    } else {
+      return <Link to={basePath + (currentPage + 1)} {...props} ref={ref} />
+    }
+  })
+
+  const LastPageLink = React.forwardRef((props: any, ref: any) => {
+    if (currentPage === numPages) {
+      return <span />
+    } else {
+      return <Link to={basePath + numPages} {...props} ref={ref} />
+    }
+  })
 
   return (
     <Container maxWidth="xs" className={classes.root}>
@@ -84,8 +103,8 @@ const Pagination = (paginationProps: IPaginationProps) => {
           <BottomNavigationAction
             label="Last"
             disabled={currentPage === numPages}
-            icon={<LastPage />}
             component={LastPageLink}
+            icon={<LastPage />}
           />
         </BottomNavigation>
       </Paper>
