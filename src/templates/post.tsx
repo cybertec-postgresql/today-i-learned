@@ -108,12 +108,12 @@ const PostPage = ({ data }: IPostPageProps) => {
               "@type": "Article",
               "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": ${siteUrl + post.slug},
+                "@id": "${siteUrl + post.slug}"
               },
-              "headline": ${post.title},
+              "headline": "${post.title}",
               "author": {
                 "@type": "Person",
-                "name": ${post.author.name},
+                "name": "${post.author.name}"
               },
               "publisher": {
                 "@type": "Organization",
@@ -123,10 +123,10 @@ const PostPage = ({ data }: IPostPageProps) => {
                   "url":
                     "http://til.cybertec-postgresql.com/icons/icon-512x512.png",
                   "width": 512,
-                  "height": 512,
-                },
+                  "height": 512
+                }
               },
-              "datePublished": ${post.date.toISOString()},
+              "datePublished": "${post.date.toISOString()}"
             }`}
         </script>
       </Helmet>

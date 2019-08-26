@@ -161,14 +161,14 @@ const Layout = ({ children }: { children: any }) => {
               "@type": "ContactPoint",
               "telephone": "+43 2622 93022-0",
               "contactType": "sales",
-              "availableLanguage": ["en", "German"],
+              "availableLanguage": ["en", "German"]
             },
             "sameAs": [
               "https://www.facebook.com/cybertec.postgresql/",
               "https://twitter.com/postgressupport",
               "https://github.com/cybertec-postgresql",
-              "https://www.cybertec-postgresql.com/",
-            ],
+              "https://www.cybertec-postgresql.com/"
+            ]
           }`}
         </script>
       </Helmet>
