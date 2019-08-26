@@ -89,6 +89,35 @@ export default class extends React.Component<IPostPageProps, {}> {
           {post.tags.map(tag => (
             <meta key={tag} property="article:tag" content={tag} />
           ))}
+
+          {/* <!-- Schema.Org Article --> */}
+          <script type="application/ld+json">
+            {{
+              "@context": "https://schema.org",
+              "@type": "Article",
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": siteUrl + post.slug,
+              },
+              headline: post.title,
+              author: {
+                "@type": "Person",
+                name: post.author.name,
+              },
+              publisher: {
+                "@type": "Organization",
+                name: "Cybertec Schönig & Schönig GmbH",
+                logo: {
+                  "@type": "ImageObject",
+                  url:
+                    "http://til.cybertec-postgresql.com/icons/icon-512x512.png",
+                  width: 512,
+                  height: 512,
+                },
+              },
+              datePublished: post.date.toISOString(),
+            }}
+          </script>
         </Helmet>
         <Container maxWidth="md">
           <Post post={post} />
