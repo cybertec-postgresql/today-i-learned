@@ -40,8 +40,11 @@ class Utterances extends React.Component<IUtterancesProps, {}> {
 
   public render() {
     return (
-      <div ref={this.myRef}>
-        {this.state.pending && <div>Loading comments...</div>}
+      <div>
+        <link rel="preconnect" href="https://api.github.com" />
+        <div ref={this.myRef}>
+          {this.state.pending && <div>Loading comments...</div>}
+        </div>
       </div>
     )
   }
