@@ -153,17 +153,17 @@ const Layout = ({ children }: { children: any }) => {
           {`{
             "@context": "https://schema.org",
             "@type": "Corporation",
-            name: "Cybertec Schönig & Schönig GmbH",
-            alternateName: "Cybertec",
-            url: "https://www.cybertec-postgresql.com/",
-            logo: "http://til.cybertec-postgresql.com/icons/icon-512x512.png",
-            contactPoint: {
+            "name": "Cybertec Schönig & Schönig GmbH",
+            "alternateName": "Cybertec",
+            "url": "https://www.cybertec-postgresql.com/",
+            "logo": "http://til.cybertec-postgresql.com/icons/icon-512x512.png",
+            "contactPoint": {
               "@type": "ContactPoint",
-              telephone: "+43 2622 93022-0",
-              contactType: "sales",
-              availableLanguage: ["en", "German"],
+              "telephone": "+43 2622 93022-0",
+              "contactType": "sales",
+              "availableLanguage": ["en", "German"],
             },
-            sameAs: [
+            "sameAs": [
               "https://www.facebook.com/cybertec.postgresql/",
               "https://twitter.com/postgressupport",
               "https://github.com/cybertec-postgresql",

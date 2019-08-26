@@ -106,27 +106,27 @@ const PostPage = ({ data }: IPostPageProps) => {
           {`{
               "@context": "https://schema.org",
               "@type": "Article",
-              mainEntityOfPage: {
+              "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": ${siteUrl + post.slug},
               },
-              headline: ${post.title},
-              author: {
+              "headline": ${post.title},
+              "author": {
                 "@type": "Person",
-                name: ${post.author.name},
+                "name": ${post.author.name},
               },
-              publisher: {
+              "publisher": {
                 "@type": "Organization",
-                name: "Cybertec Schönig & Schönig GmbH",
-                logo: {
+                "name": "Cybertec Schönig & Schönig GmbH",
+                "logo": {
                   "@type": "ImageObject",
-                  url:
+                  "url":
                     "http://til.cybertec-postgresql.com/icons/icon-512x512.png",
-                  width: 512,
-                  height: 512,
+                  "width": 512,
+                  "height": 512,
                 },
               },
-              datePublished: ${post.date.toISOString()},
+              "datePublished": ${post.date.toISOString()},
             }`}
         </script>
       </Helmet>
