@@ -145,7 +145,7 @@ const PostPage = ({ data }: IPostPageProps) => {
           </style>
           <Utterances
             repo="cybertec-postgresql/today-i-learned-content"
-            issueTerm="pathname"
+            issueTerm="og:title"
             label="Comments 💬"
             theme="github-light"
           />
