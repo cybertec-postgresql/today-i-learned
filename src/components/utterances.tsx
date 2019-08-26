@@ -1,4 +1,5 @@
 import * as React from "react"
+import Helmet from "react-helmet"
 
 interface IUtterancesProps {
   repo: string
@@ -41,7 +42,10 @@ class Utterances extends React.Component<IUtterancesProps, {}> {
   public render() {
     return (
       <div>
-        <link rel="preconnect" href="https://api.github.com" />
+        <Helmet>
+          <link rel="preconnect" href="https://api.github.com" />
+          <link rel="preconnect" href="https://utteranc.es" />
+        </Helmet>
         <div ref={this.myRef}>
           {this.state.pending && <div>Loading comments...</div>}
         </div>
