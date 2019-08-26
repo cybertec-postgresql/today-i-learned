@@ -150,7 +150,7 @@ const Layout = ({ children }: { children: any }) => {
 
         {/* <!-- Scheme.org Corporation --> */}
         <script type="application/ld+json">
-          {{
+          {`{
             "@context": "https://schema.org",
             "@type": "Corporation",
             name: "Cybertec Schönig & Schönig GmbH",
@@ -169,7 +169,7 @@ const Layout = ({ children }: { children: any }) => {
               "https://github.com/cybertec-postgresql",
               "https://www.cybertec-postgresql.com/",
             ],
-          }}
+          }`}
         </script>
       </Helmet>
 

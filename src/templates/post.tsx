@@ -1,6 +1,7 @@
 import { graphql } from "gatsby"
 import * as React from "react"
 import { Helmet } from "react-helmet"
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
 
 import IPost from "../interfaces/IPost"
 import IAuthor from "../interfaces/IAuthor"
@@ -8,6 +9,8 @@ import IAuthor from "../interfaces/IAuthor"
 import Container from "@material-ui/core/Container"
 import Layout from "../components/layout"
 import Post from "../components/post"
+import Paper from "@material-ui/core/Paper"
+import Utterances from "../components/utterances"
 
 interface IPostPageProps {
   data: {
@@ -37,72 +40,80 @@ interface IPostPageProps {
   }
 }
 
-export default class extends React.Component<IPostPageProps, {}> {
-  constructor(props: IPostPageProps, context: any) {
-    super(props, context)
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    utterances: {
+      marginBottom: theme.spacing(4),
+      marginTop: theme.spacing(4),
+      padding: theme.spacing(0, 3),
+    },
+  })
+)
+
+const PostPage = ({ data }: IPostPageProps) => {
+  const post: IPost = {
+    excerpt: data.markdownRemark.excerpt,
+    html: data.markdownRemark.html,
+    title: data.markdownRemark.frontmatter.title,
+    wordCount: data.markdownRemark.wordCount.words,
+    description: data.markdownRemark.frontmatter.description,
+    tags: data.markdownRemark.frontmatter.tags,
+    date: new Date(data.markdownRemark.frontmatter.date),
+    author: data.markdownRemark.frontmatter.author,
+    slug: data.markdownRemark.fields.slug,
   }
-  public render() {
-    const post: IPost = {
-      excerpt: this.props.data.markdownRemark.excerpt,
-      html: this.props.data.markdownRemark.html,
-      title: this.props.data.markdownRemark.frontmatter.title,
-      wordCount: this.props.data.markdownRemark.wordCount.words,
-      description: this.props.data.markdownRemark.frontmatter.description,
-      tags: this.props.data.markdownRemark.frontmatter.tags,
-      date: new Date(this.props.data.markdownRemark.frontmatter.date),
-      author: this.props.data.markdownRemark.frontmatter.author,
-      slug: this.props.data.markdownRemark.fields.slug,
-    }
 
-    const siteUrl = this.props.data.site.siteMetadata.siteUrl
+  const siteUrl = data.site.siteMetadata.siteUrl
 
-    return (
-      <Layout>
-        <Helmet>
-          <link rel="canonical" href={siteUrl + post.slug} />
+  const classes = useStyles()
 
-          {/* <!-- Twitter Card data --> */}
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content={post.title} />
-          <meta
-            name="twitter:description"
-            content={post.description ? post.description : post.excerpt}
-          />
-          <meta name="twitter:creator" content={post.author.twitter} />
+  return (
+    <Layout>
+      <Helmet>
+        <link rel="canonical" href={siteUrl + post.slug} />
 
-          {/* <!-- Open Graph data --> */}
-          <meta property="og:title" content={post.title} />
-          <meta property="og:type" content="article" />
-          <meta property="og:url" content={siteUrl + post.slug} />
-          <meta
-            property="og:description"
-            content={post.description ? post.description : post.excerpt}
-          />
-          <meta
-            property="article:published_time"
-            content={post.date.toISOString()}
-          />
-          <meta
-            property="article:author"
-            content={siteUrl + "/author/" + post.author.name}
-          />
-          {post.tags.map(tag => (
-            <meta key={tag} property="article:tag" content={tag} />
-          ))}
+        {/* <!-- Twitter Card data --> */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={post.title} />
+        <meta
+          name="twitter:description"
+          content={post.description ? post.description : post.excerpt}
+        />
+        <meta name="twitter:creator" content={post.author.twitter} />
 
-          {/* <!-- Schema.Org Article --> */}
-          <script type="application/ld+json">
-            {{
+        {/* <!-- Open Graph data --> */}
+        <meta property="og:title" content={post.title} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={siteUrl + post.slug} />
+        <meta
+          property="og:description"
+          content={post.description ? post.description : post.excerpt}
+        />
+        <meta
+          property="article:published_time"
+          content={post.date.toISOString()}
+        />
+        <meta
+          property="article:author"
+          content={siteUrl + "/author/" + post.author.name}
+        />
+        {post.tags.map(tag => (
+          <meta key={tag} property="article:tag" content={tag} />
+        ))}
+
+        {/* <!-- Schema.Org Article --> */}
+        <script type="application/ld+json">
+          {`{
               "@context": "https://schema.org",
               "@type": "Article",
               mainEntityOfPage: {
                 "@type": "WebPage",
-                "@id": siteUrl + post.slug,
+                "@id": ${siteUrl + post.slug},
               },
-              headline: post.title,
+              headline: ${post.title},
               author: {
                 "@type": "Person",
-                name: post.author.name,
+                name: ${post.author.name},
               },
               publisher: {
                 "@type": "Organization",
@@ -115,17 +126,36 @@ export default class extends React.Component<IPostPageProps, {}> {
                   height: 512,
                 },
               },
-              datePublished: post.date.toISOString(),
-            }}
-          </script>
-        </Helmet>
-        <Container maxWidth="md">
-          <Post post={post} />
-        </Container>
-      </Layout>
-    )
-  }
+              datePublished: ${post.date.toISOString()},
+            }`}
+        </script>
+      </Helmet>
+      <Container maxWidth="md">
+        <Post post={post} />
+      </Container>
+      <Container maxWidth="md">
+        <Paper className={classes.utterances} component="article" elevation={1}>
+          <style>
+            {`
+            .utterances {
+              max-width: 100%;
+              width: 100%;
+            }
+            `}
+          </style>
+          <Utterances
+            repo="cybertec-postgresql/today-i-learned-content"
+            issueTerm="pathname"
+            label="Comments 💬"
+            theme="github-light"
+          />
+        </Paper>
+      </Container>
+    </Layout>
+  )
 }
+
+export default PostPage
 
 export const query = graphql`
   query($slug: String!) {
