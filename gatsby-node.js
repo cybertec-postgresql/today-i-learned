@@ -110,7 +110,7 @@ exports.createPages = async function({ actions, graphql }) {
   })
 
   data.allAuthorsYaml.nodes.forEach(node => {
-    const posts = node.posts
+    const posts = (node.posts = node.posts ? node.posts : [])
     const numPages = Math.ceil(posts.length / postsPerPage)
 
     const author = {
