@@ -46,6 +46,7 @@
     "lint": "tslint --project .",
     "build": "gatsby build",
     "develop": "gatsby develop",
+    "docker": "gatsby develop -H 0.0.0.0",
     "format": "prettier --parser typescript --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.ts*\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
