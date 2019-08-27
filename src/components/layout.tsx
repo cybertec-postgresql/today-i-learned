@@ -15,7 +15,7 @@ import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import { ThemeProvider } from "@material-ui/styles"
-import { Favorite } from "@material-ui/icons"
+import useMediaQuery from "@material-ui/core/useMediaQuery"
 import Box from "@material-ui/core/Box"
 
 const theme = createMuiTheme({
@@ -131,6 +131,8 @@ const Layout = ({ children }: { children: any }) => {
   `)
   const siteMetadata = data.site.siteMetadata
 
+  const titleTooSmall = useMediaQuery("(max-width:360px)")
+
   return (
     <ThemeProvider theme={theme}>
       <Helmet>
@@ -179,7 +181,7 @@ const Layout = ({ children }: { children: any }) => {
           <Toolbar>
             <Typography variant="h5" color="inherit">
               <Link to="/" className={classes.headerTitle}>
-                <span>Today I Learned</span>
+                <span>{titleTooSmall ? "TIL" : "Today I learned"}</span>
                 <span className={classes.headerLeftSpace}>@</span>
                 <img
                   src={data.file.publicURL}
@@ -194,46 +196,32 @@ const Layout = ({ children }: { children: any }) => {
         <Box paddingBottom="32px">{children}</Box>
         <footer className={classes.footer}>
           <Container maxWidth="lg">
-            <Grid container justify="space-between" alignItems="center">
-              <Grid
-                item
-                className={classes.footerAuthor}
-                component={props => (
-                  <Typography variant="h6" component="p" {...props} />
-                )}
-              >
-                Made with <Favorite /> by &copy; 2019 Cybertec Schönig & Schönig
-                GmbH
-              </Grid>
-              <Grid item>
-                <Grid container>
-                  {footerLinks.map(item => {
-                    const L = (props: any) =>
-                      item.extern ? (
-                        <a
-                          href={item.to}
-                          {...props}
-                          target="_blank"
-                          rel="noopener"
-                        />
-                      ) : (
-                        <Link to={item.to} {...props} />
-                      )
+            <Grid container>
+              {footerLinks.map(item => {
+                const L = (props: any) =>
+                  item.extern ? (
+                    <a
+                      href={item.to}
+                      {...props}
+                      target="_blank"
+                      rel="noopener"
+                    />
+                  ) : (
+                    <Link to={item.to} {...props} />
+                  )
 
-                    return (
-                      <Grid item key={item.text}>
-                        <Typography
-                          className={classes.footerLink}
-                          variant="h6"
-                          component={L}
-                        >
-                          {item.text}
-                        </Typography>
-                      </Grid>
-                    )
-                  })}
-                </Grid>
-              </Grid>
+                return (
+                  <Grid item key={item.text}>
+                    <Typography
+                      className={classes.footerLink}
+                      variant="h6"
+                      component={L}
+                    >
+                      {item.text}
+                    </Typography>
+                  </Grid>
+                )
+              })}
             </Grid>
           </Container>
         </footer>
