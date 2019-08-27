@@ -92,6 +92,8 @@ const AuthorPage = ({
   return (
     <Layout>
       <Helmet>
+        <title>Posts by {author.name}</title>
+
         <meta property="og:type" content="profile" />
         <meta
           property="profile:first_name"
