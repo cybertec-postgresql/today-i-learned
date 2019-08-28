@@ -33,7 +33,7 @@ const theme = createMuiTheme({
     },
   },
   palette: {
-    // type: "light",
+    type: "light",
     primary: {
       main: "#38bde9",
     },

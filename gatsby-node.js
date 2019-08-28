@@ -45,6 +45,11 @@ exports.createPages = async function({ actions, graphql }) {
               author {
                 name
                 email
+                subtitle
+                twitter
+                github
+                web
+                linkedin
               }
               tags
               description
@@ -116,6 +121,11 @@ exports.createPages = async function({ actions, graphql }) {
     const author = {
       email: node.email,
       name: node.name,
+      subtitle: node.subtitle,
+      twitter: node.twitter,
+      github: node.github,
+      web: node.web,
+      linkedin: node.linkedin,
     }
 
     Array.from({ length: numPages }).forEach((_, i) => {

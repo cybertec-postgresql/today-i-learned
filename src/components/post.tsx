@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     footerAuthor: {
       [theme.breakpoints.down("xs")]: {
-        margin: theme.spacing(1, 0),
+        margin: theme.spacing(1, 0, 0, 0),
       },
     },
     footer: {
