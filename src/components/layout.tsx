@@ -88,7 +88,7 @@ const useStyles = makeStyles(() =>
     headerIconGrid: {
       // display: "inline-flex",
       // alignItems: "center",
-      fontWeight: theme.typography.fontWeight,
+      fontWeight: theme.typography.fontWeightBold,
     },
     headerLeftSpace: {
       marginLeft: theme.spacing(1),
