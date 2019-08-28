@@ -4,6 +4,7 @@ import Layout from "../components/layout"
 import { StaticQuery, graphql } from "gatsby"
 import { Paper, Container } from "@material-ui/core"
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
+import Helmet from "react-helmet"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,6 +21,9 @@ const ImprintPage = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>Imprint - Today I learned @Cybertec</title>
+      </Helmet>
       <Container maxWidth="md">
         <Paper className={classes.root}>
           <StaticQuery
