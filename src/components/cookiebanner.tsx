@@ -35,22 +35,21 @@ const useStateWithLocalStorage = (
   localStorageKey: string
 ): [string, React.Dispatch<React.SetStateAction<string>>] => {
   const [value, setValue] = React.useState(
-    localStorage.getItem(localStorageKey) || ""
+    typeof window !== "undefined"
+      ? localStorage.getItem(localStorageKey) || ""
+      : ""
   )
   React.useEffect(() => {
-    localStorage.setItem(localStorageKey, value)
+    if (typeof window !== "undefined") {
+      localStorage.setItem(localStorageKey, value)
+    }
   }, [value])
   return [value, setValue]
 }
 
 const CookieBanner = () => {
   const classes = useStyles()
-  let value: string = ""
-  let setValue: React.Dispatch<React.SetStateAction<string>>
-
-  if (typeof window !== "undefined") {
-    ;[value, setValue] = useStateWithLocalStorage("removeCookieBanner")
-  }
+  const [value, setValue] = useStateWithLocalStorage("removeCookieBanner")
 
   const onClicked = (_: any) => setValue(String(true))
 
