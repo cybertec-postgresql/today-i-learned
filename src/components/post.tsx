@@ -38,6 +38,17 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.secondary.dark,
       fontWeight: theme.typography.fontWeightBold,
     },
+    footerAuthor: {
+      [theme.breakpoints.down("xs")]: {
+        margin: theme.spacing(1, 0),
+      },
+    },
+    footer: {
+      [theme.breakpoints.down("xs")]: {
+        justifyContent: "center",
+        flexDirection: "column",
+      },
+    },
   })
 )
 
@@ -71,7 +82,12 @@ const Post = ({ post }: { post: IPost }) => {
       />
       <Divider variant="middle" className={classes.footerDivider} />
       <footer>
-        <Grid container justify="space-between" alignItems="center">
+        <Grid
+          container
+          justify="space-between"
+          alignItems="center"
+          className={classes.footer}
+        >
           <Grid item>
             {post.tags.map(tag => {
               return (
@@ -88,7 +104,7 @@ const Post = ({ post }: { post: IPost }) => {
               )
             })}
           </Grid>
-          <Grid item>
+          <Grid item className={classes.footerAuthor}>
             Written by{" "}
             <Link
               to={`/author/${post.author.name}`}

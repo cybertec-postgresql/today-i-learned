@@ -65,6 +65,10 @@ const useStyles = makeStyles(() =>
       position: "absolute",
       bottom: "0",
       width: "100%",
+      padding: theme.spacing(0, 2),
+      [theme.breakpoints.down("xs")]: {
+        justifyContent: "center",
+      },
     },
     footerLink: {
       paddingLeft: theme.spacing(1),
@@ -234,14 +238,14 @@ const Layout = ({ children }: { children: any }) => {
                     </IconButton>
                   </a>
                 </Tooltip>
-                <Tooltip title="Cybertec Webpage" aria-label="Cybertec Webpage">
+                <Tooltip title="Cybertec" aria-label="Cybertec">
                   <a
                     href="https://www.cybertec-postgresql.com/"
                     target="_blank"
                     rel="noopener"
                   >
                     <IconButton
-                      aria-label="Cybertec Webpage"
+                      aria-label="Cybertec"
                       size={titleTooSmall ? "small" : "medium"}
                     >
                       <LanguageIcon />
@@ -275,37 +279,28 @@ const Layout = ({ children }: { children: any }) => {
           </Toolbar>
         </AppBar>
         <Box paddingBottom="32px">{children}</Box>
-        <footer className={classes.footer}>
-          <Container maxWidth="lg">
-            <Grid container>
-              {footerLinks.map(item => {
-                const L = (props: any) =>
-                  item.extern ? (
-                    <a
-                      href={item.to}
-                      {...props}
-                      target="_blank"
-                      rel="noopener"
-                    />
-                  ) : (
-                    <Link to={item.to} {...props} />
-                  )
+        <Grid container className={classes.footer} component="footer">
+          {footerLinks.map(item => {
+            const L = (props: any) =>
+              item.extern ? (
+                <a href={item.to} {...props} target="_blank" rel="noopener" />
+              ) : (
+                <Link to={item.to} {...props} />
+              )
 
-                return (
-                  <Grid item key={item.text}>
-                    <Typography
-                      className={classes.footerLink}
-                      variant="h6"
-                      component={L}
-                    >
-                      {item.text}
-                    </Typography>
-                  </Grid>
-                )
-              })}
-            </Grid>
-          </Container>
-        </footer>
+            return (
+              <Grid item key={item.text}>
+                <Typography
+                  className={classes.footerLink}
+                  variant="h6"
+                  component={L}
+                >
+                  {item.text}
+                </Typography>
+              </Grid>
+            )
+          })}
+        </Grid>
       </Box>
     </ThemeProvider>
   )
