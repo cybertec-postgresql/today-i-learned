@@ -33,6 +33,7 @@ const theme = createMuiTheme({
     },
   },
   palette: {
+    // type: "light",
     primary: {
       main: "#38bde9",
     },
@@ -253,7 +254,7 @@ const Layout = ({ children }: { children: any }) => {
                 </Tooltip>
                 <Tooltip title="GitHub" aria-label="GitHub">
                   <a
-                    href="https://github.com/cybertec-postgresql"
+                    href="https://github.com/cybertec-postgresql/today-i-learned"
                     target="_blank"
                     rel="noopener"
                   >
