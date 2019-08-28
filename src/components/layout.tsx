@@ -17,7 +17,7 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import { ThemeProvider } from "@material-ui/styles"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import Box from "@material-ui/core/Box"
-
+import CookieBanner from "../components/cookiebanner"
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -176,6 +176,7 @@ const Layout = ({ children }: { children: any }) => {
       </Helmet>
 
       <CssBaseline />
+      <CookieBanner />
       <Box className={classes.root}>
         <AppBar position="static" color="default">
           <Toolbar>

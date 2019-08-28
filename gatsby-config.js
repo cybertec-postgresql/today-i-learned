@@ -151,5 +151,20 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-2908677-12",
+        head: false,
+        anonymize: true,
+        respectDNT: true,
+        exclude: [],
+        pageTransitionDelay: 0,
+        // Any additional optional fields
+        sampleRate: 100,
+        siteSpeedSampleRate: 50,
+        cookieDomain: "til.cybertec-postgresql.com",
+      },
+    },
   ],
 }
