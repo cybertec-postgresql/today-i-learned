@@ -45,7 +45,12 @@ const useStateWithLocalStorage = (
 
 const CookieBanner = () => {
   const classes = useStyles()
-  const [value, setValue] = useStateWithLocalStorage("removeCookieBanner")
+  let value: string = ""
+  let setValue: React.Dispatch<React.SetStateAction<string>>
+
+  if (typeof window !== "undefined") {
+    ;[value, setValue] = useStateWithLocalStorage("removeCookieBanner")
+  }
 
   const onClicked = (_: any) => setValue(String(true))
 

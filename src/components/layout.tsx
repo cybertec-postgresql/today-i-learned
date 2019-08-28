@@ -9,7 +9,6 @@ import {
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { Helmet } from "react-helmet"
 import AppBar from "@material-ui/core/AppBar"
-import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
