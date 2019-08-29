@@ -21,6 +21,7 @@ import SvgIcon from "@material-ui/core/SvgIcon"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import LanguageIcon from "@material-ui/icons/Language"
+import { NoSsr } from "@material-ui/core"
 
 const theme = createMuiTheme({
   overrides: {
@@ -199,7 +200,9 @@ const Layout = ({ children }: { children: any }) => {
       </Helmet>
 
       <CssBaseline />
-      <CookieBanner />
+      <NoSsr>
+        <CookieBanner />
+      </NoSsr>
       <Box className={classes.root}>
         <AppBar position="static" color="default">
           <Toolbar>
