@@ -29,6 +29,7 @@ module.exports = {
       options: {
         name: `posts`,
         path: `${__dirname}/content/posts/`,
+        ignore: process.env.NODE_ENV === `production` && [`**/TEMPLATE/*`]
       },
     },
     {
@@ -145,7 +146,6 @@ module.exports = {
                 }
               }
             }
-            
             `,
             output: "/rss.xml",
             title: "Today I learned @Cybertec - RSS Feed",

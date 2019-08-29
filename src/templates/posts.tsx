@@ -83,10 +83,7 @@ export const postPageQuery = graphql`
       sort: { fields: [frontmatter___date], order: DESC }
       limit: $limit
       skip: $skip
-      filter: {
-        fileAbsolutePath: { regex: "/posts/" }
-        frontmatter: { title: { ne: "Hello World!" } }
-      }
+      filter: { fileAbsolutePath: { regex: "/posts/" } }
     ) {
       edges {
         node {
