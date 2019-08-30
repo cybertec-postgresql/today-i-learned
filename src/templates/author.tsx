@@ -212,7 +212,7 @@ const AuthorPage = ({
             {author.email && (
               <Tooltip title="E-Mail" aria-label="E-Mail">
                 <a
-                  href={`mailto://${author.email}`}
+                  href={`mailto:${author.email}`}
                   target="_blank"
                   rel="noopener"
                 >
