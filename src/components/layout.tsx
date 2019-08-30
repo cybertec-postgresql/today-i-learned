@@ -124,6 +124,10 @@ const Layout = ({ children }: { children: any }) => {
   const classes = useStyles()
   const footerLinks = [
     {
+      text: "About",
+      to: "/about",
+    },
+    {
       text: "Imprint",
       to: "/imprint",
     },
@@ -135,6 +139,16 @@ const Layout = ({ children }: { children: any }) => {
     {
       text: "Privacy",
       to: "/privacy",
+    },
+    {
+      text: "RSS Feed",
+      to: "/rss.xml",
+      extern: true,
+    },
+    {
+      text: "Sitemap",
+      to: "/sitemap.xml",
+      extern: true,
     },
   ]
 

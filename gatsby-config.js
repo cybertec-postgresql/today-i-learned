@@ -29,7 +29,7 @@ module.exports = {
       options: {
         name: `posts`,
         path: `${__dirname}/content/posts/`,
-        ignore: process.env.NODE_ENV === `production` && [`**/TEMPLATE/*`]
+        ignore: process.env.NODE_ENV === `production` && [`**/TEMPLATE/*`],
       },
     },
     {
