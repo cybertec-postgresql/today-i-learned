@@ -132,7 +132,7 @@ const AuthorPage = ({
         <meta property="og:type" content="profile" />
       </Helmet>
 
-      <Container maxWidth="md" className={classes.root}>
+      <Container maxWidth="sm" className={classes.root}>
         <Paper elevation={1} className={classes.authorPaper}>
           <Typography variant="h4" component="h1" align="center">
             {author.name}
@@ -140,7 +140,7 @@ const AuthorPage = ({
           <Typography variant="h6" component="p" align="center">
             {author.subtitle}
           </Typography>
-          <Grid container className={classes.authorIcons}>
+          <Grid container className={classes.authorIcons} justify="center">
             {author.github && (
               <Tooltip title="GitHub" aria-label="GitHub">
                 <a
