@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1, 0, 3),
     },
     postTag: {
-      marginRight: theme.spacing(1),
       fontWeight: theme.typography.fontWeightBold,
       cursor: "pointer",
+      margin: theme.spacing(0.5),
     },
     footerDivider: {
       margin: theme.spacing(3, 0),
@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme: Theme) =>
         justifyContent: "center",
         flexDirection: "column",
       },
+    },
+    tagGrid: {
+      display: "flex",
+      flexWrap: "wrap",
     },
   })
 )
@@ -88,7 +92,7 @@ const Post = ({ post }: { post: IPost }) => {
           alignItems="center"
           className={classes.footer}
         >
-          <Grid item>
+          <Grid item className={classes.tagGrid}>
             {post.tags.map(tag => {
               return (
                 <Chip

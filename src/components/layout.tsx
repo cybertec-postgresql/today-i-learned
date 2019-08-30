@@ -219,7 +219,7 @@ const Layout = ({ children }: { children: any }) => {
       </NoSsr>
       <Box className={classes.root}>
         <AppBar position="static" color="default">
-          <Toolbar>
+          <Toolbar variant="dense">
             <Grid container justify="space-between" alignItems="center">
               <Typography variant="h5" color="inherit">
                 <Link to="/" className={classes.headerTitle}>
