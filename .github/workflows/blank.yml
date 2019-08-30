@@ -11,7 +11,7 @@ jobs:
     name: Trigger Build
 
     steps:
-      - run: "curl -X POST https://api.github.com/repos/cybertec-postgresql/today-i-learned-content/dispatches -H 'Accept: application/vnd.github.everest-preview+json' -H 'Content-Type: application/json' -H 'Authorization: Bearer $GITHUB_TOKEN' -H 'cache-control: no-cache' -d '{"event_type": "repository_dispatch"}'"
+      - run: "echo Hello"
         name: "Remote Buid"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
