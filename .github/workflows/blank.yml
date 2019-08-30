@@ -1,13 +1,16 @@
 name: Build
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Remote Buid
-        run: "curl -X POST https://api.github.com/repos/cybertec-postgresql/today-i-learned-content/dispatches -H 'Accept: application/vnd.github.everest-preview+json' -H 'Content-Type: application/json' -H 'Authorization: Bearer $GITHUB_TOKEN' -H 'cache-control: no-cache' -d '{"event_type": "repository_dispatch"}'"
+      - run: "curl -X POST https://api.github.com/repos/cybertec-postgresql/today-i-learned-content/dispatches -H 'Accept: application/vnd.github.everest-preview+json' -H 'Content-Type: application/json' -H 'Authorization: Bearer $GITHUB_TOKEN' -H 'cache-control: no-cache' -d '{"event_type": "repository_dispatch"}'"
+        name: "Remote Buid"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
