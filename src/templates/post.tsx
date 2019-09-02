@@ -71,6 +71,7 @@ const PostPage = ({ data }: IPostPageProps) => {
     <Layout>
       <Helmet>
         <link rel="canonical" href={siteUrl + post.slug} />
+        <meta name="description" content={post.description} />
         <title>{post.title}</title>
 
         {/* <!-- Twitter Card data --> */}
@@ -128,6 +129,29 @@ const PostPage = ({ data }: IPostPageProps) => {
                 }
               },
               "datePublished": "${post.date.toISOString()}"
+            }`}
+        </script>
+
+        {/* <!-- Schema.Org BreadcrumbList --> */}
+        <script type="application/ld+json">
+          {`{
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement":
+              [
+               {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Posts",
+                "item": "https://til.cybertec-postgresql.com/"
+               },
+               {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "${post.title}",
+                "item": "${siteUrl + post.slug}"
+               }
+              ]
             }`}
         </script>
       </Helmet>

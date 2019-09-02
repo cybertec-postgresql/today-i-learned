@@ -175,14 +175,14 @@ const Layout = ({ children }: { children: any }) => {
     <ThemeProvider theme={theme}>
       <Helmet>
         <title>{siteMetadata.title}</title>
-        <meta name="description" content={siteMetadata.description} />
+        {/* <meta name="description" content={siteMetadata.description} /> */}
         <html lang="en" />
 
         {/* <!-- Twitter Card data --> */}
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content={siteMetadata.twitter} />
         <meta name="twitter:title" content={siteMetadata.title} />
-        <meta name="twitter:description" content={siteMetadata.description} />
+        {/* <meta name="twitter:description" content={siteMetadata.description} /> */}
 
         {/* <!-- Open Graph data --> */}
         <meta property="og:locale" content="en_US" />

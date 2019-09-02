@@ -29,7 +29,8 @@ module.exports = {
       options: {
         name: `posts`,
         path: `${__dirname}/content/posts/`,
-        ignore: process.env.NODE_ENV === `production` && [`**/TEMPLATE/*`],
+        ignore: process.env.NODE_ENV === `production` &&
+          !process.env.NOW_GITHUB_DEPLOYMENT && [`**/TEMPLATE/*`],
       },
     },
     {

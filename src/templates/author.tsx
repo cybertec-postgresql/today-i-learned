@@ -118,6 +118,29 @@ const AuthorPage = ({
       <Helmet>
         <title>Posts by {author.name}</title>
 
+        {/* <!-- Schema.Org BreadcrumbList --> */}
+        <script type="application/ld+json">
+          {`{
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement":
+              [
+               {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Authors",
+                "item": "https://til.cybertec-postgresql.com/"
+               },
+               {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "${author.name}",
+                "item": "https://til.cybertec-postgresql.com/author/${author.name}"
+               }
+              ]
+            }`}
+        </script>
+
         <meta property="og:type" content="profile" />
         <meta
           property="profile:first_name"

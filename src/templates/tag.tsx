@@ -85,6 +85,10 @@ const TagPage = ({
     <Layout>
       <Helmet>
         <title>Posts tagged "{pageContext.tag}"</title>
+        <meta
+          name="description"
+          content={`A list of all posts tagged with ${pageContext.tag}`}
+        />
         {/* <!-- Twitter Card data --> */}
         <meta name="twitter:card" content="summary" />
         <meta
@@ -94,7 +98,29 @@ const TagPage = ({
         <meta
           name="twitter:description"
           content={`À list of all posts tagged with "${pageContext.tag}".`}
-        />{" "}
+        />
+        {/* <!-- Schema.Org BreadcrumbList --> */}
+        <script type="application/ld+json">
+          {`{
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement":
+              [
+               {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Tags",
+                "item": "https://til.cybertec-postgresql.com/"
+               },
+               {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "${pageContext.tag}",
+                "item": "https://til.cybertec-postgresql.com/tag/${pageContext.tag}"
+               }
+              ]
+            }`}
+        </script>
       </Helmet>
       <Container maxWidth="md" className={classes.root}>
         <Paper elevation={1} className={classes.tagPaper}>
