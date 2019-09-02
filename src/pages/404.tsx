@@ -31,9 +31,9 @@ const NotFoundPage = () => {
       <Helmet>
         <title>404 Not Found - Today I learned @Cybertec</title>
       </Helmet>
-      <Container maxWidth="md">
+      <Container maxWidth="xs">
         <Paper className={classes.root}>
-          <Typography variant="h1" component="h1" align="center">
+          <Typography variant="h3" component="h3" align="center">
             ¯\_(ツ)_/¯
           </Typography>
           <Typography
