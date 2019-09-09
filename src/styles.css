@@ -1,3 +1,7 @@
 .markdown-body a > code {
   color: inherit
 }
+
+:not(pre) > code[class*="language-"] {
+  white-space: pre-wrap
+}
