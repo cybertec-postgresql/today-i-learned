@@ -2,6 +2,7 @@ import { graphql } from "gatsby"
 import * as React from "react"
 import IAuthor from "../interfaces/IAuthor"
 import IPost from "../interfaces/IPost"
+import IShare from "../interfaces/IShare"
 import Layout from "../components/layout"
 import PostList from "../components/postList"
 import Pagination from "../components/pagination"
@@ -29,6 +30,13 @@ interface IPostsPageProps {
         }
       }
     ]
+  }
+  site: {
+    siteMetadata: {
+      title: string
+      siteUrl: string
+      twitter: string
+    }
   }
 }
 
@@ -64,7 +72,7 @@ const PostsPage = ({
 
   return (
     <Layout>
-      <PostList posts={posts} />
+      <PostList posts={posts} siteMetadata={data.site.siteMetadata} />
       <Pagination
         currentPage={currentPage}
         numPages={numPages}
@@ -106,6 +114,13 @@ export const postPageQuery = graphql`
             slug
           }
         }
+      }
+    }
+    site {
+      siteMetadata {
+        title
+        siteUrl
+        twitter
       }
     }
   }
