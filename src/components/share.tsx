@@ -2,7 +2,7 @@ import React from "react"
 
 import Box from "@material-ui/core/Box"
 
-import { makeStyles, createStyles } from "@material-ui/core/styles"
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import {
   FacebookShareButton,
@@ -17,8 +17,13 @@ import {
 
 import IShare from "../interfaces/IShare"
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      [theme.breakpoints.down("xs")]: {
+        margin: theme.spacing(1, 0, 0, 0),
+      },
+    },
     socialWrapper: {
       verticalAlign: "top",
       display: "inline-block",
@@ -29,6 +34,9 @@ const useStyles = makeStyles(() =>
       marginRight: "15px",
       display: "inline-block",
       marginTop: "5px",
+      [theme.breakpoints.down("xs")]: {
+        marginRight: theme.spacing(1),
+      },
     },
   })
 )
@@ -36,7 +44,7 @@ const useStyles = makeStyles(() =>
 const Share = ({ socialConfig, tags }: IShare) => {
   const classes = useStyles()
   return (
-    <React.Fragment>
+    <Box className={classes.root}>
       <Box className={classes.shareText}>Share:</Box>
       <Box className={classes.socialWrapper}>
         <FacebookShareButton
@@ -74,7 +82,7 @@ const Share = ({ socialConfig, tags }: IShare) => {
           <RedditIcon size={32} round={true} />
         </RedditShareButton>
       </Box>
-    </React.Fragment>
+    </Box>
   )
 }
 
