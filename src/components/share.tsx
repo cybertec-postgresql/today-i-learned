@@ -25,6 +25,11 @@ const useStyles = makeStyles(() =>
       marginRight: "15px",
       textAlign: "center",
     },
+    shareText: {
+      marginRight: "15px",
+      display: "inline-block",
+      marginTop: "5px",
+    },
   })
 )
 
@@ -32,6 +37,7 @@ const Share = ({ socialConfig, tags }: IShare) => {
   const classes = useStyles()
   return (
     <React.Fragment>
+      <Box className={classes.shareText}>Share:</Box>
       <Box className={classes.socialWrapper}>
         <FacebookShareButton
           url={socialConfig.config.url}
@@ -63,7 +69,7 @@ const Share = ({ socialConfig, tags }: IShare) => {
           url={socialConfig.config.url}
           title={socialConfig.config.title}
           windowWidth={660}
-            windowHeight={460}
+          windowHeight={460}
         >
           <RedditIcon size={32} round={true} />
         </RedditShareButton>

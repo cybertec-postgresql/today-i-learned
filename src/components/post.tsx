@@ -118,8 +118,7 @@ const Post = ({
             })}
           </Grid>
           <Grid item={true}>
-
-          <Share socialConfig={socialConfig} tags={tags} />
+            <Share socialConfig={socialConfig} tags={tags} />
           </Grid>
           <Grid item className={classes.footerAuthor}>
             Written by{" "}

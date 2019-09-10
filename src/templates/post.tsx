@@ -5,7 +5,7 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
 
 import IPost from "../interfaces/IPost"
 import IAuthor from "../interfaces/IAuthor"
-import IShare from '../interfaces/IShare';
+import IShare from "../interfaces/IShare"
 
 import Container from "@material-ui/core/Container"
 import Layout from "../components/layout"
@@ -35,8 +35,8 @@ interface IPostPageProps {
     site: {
       siteMetadata: {
         title: string
-        siteUrl: string,
-        twitter: string,
+        siteUrl: string
+        twitter: string
       }
     }
   }
@@ -72,10 +72,10 @@ const PostPage = ({ data }: IPostPageProps) => {
       twitter: data.site.siteMetadata.twitter,
       config: {
         url: `${siteUrl}${post.slug}`,
-        title: post.title
-      }
+        title: post.title,
+      },
     },
-    tags: post.tags
+    tags: post.tags,
   }
 
   const classes = useStyles()
@@ -220,7 +220,7 @@ export const query = graphql`
     site {
       siteMetadata {
         title
-        siteUrl,
+        siteUrl
         twitter
       }
     }
