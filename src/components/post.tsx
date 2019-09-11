@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
     tagGrid: {
       display: "flex",
       flexWrap: "wrap",
+      [theme.breakpoints.down("xs")]: {
+        justifyContent: "center",
+      }
     },
   })
 )
