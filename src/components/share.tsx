@@ -24,11 +24,14 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(1, 0, 0, 0),
       },
     },
-    socialWrapper: {
+    socialButtonWrapper: {
       verticalAlign: "top",
       display: "inline-block",
       marginRight: "15px",
       textAlign: "center",
+      "&:last-child": {
+        marginRight: 0,
+      }
     },
     shareText: {
       marginRight: "15px",
@@ -46,7 +49,7 @@ const Share = ({ socialConfig, tags }: IShare) => {
   return (
     <Box className={classes.root}>
       <Box className={classes.shareText}>Share:</Box>
-      <Box className={classes.socialWrapper}>
+      <Box className={classes.socialButtonWrapper}>
         <FacebookShareButton
           url={socialConfig.config.url}
           quote={socialConfig.config.title}
@@ -54,7 +57,7 @@ const Share = ({ socialConfig, tags }: IShare) => {
           <FacebookIcon size={32} round={true} />
         </FacebookShareButton>
       </Box>
-      <Box className={classes.socialWrapper}>
+      <Box className={classes.socialButtonWrapper}>
         <TwitterShareButton
           url={socialConfig.config.url}
           title={socialConfig.config.title}
@@ -64,7 +67,7 @@ const Share = ({ socialConfig, tags }: IShare) => {
           <TwitterIcon size={32} round={true} />
         </TwitterShareButton>
       </Box>
-      <Box className={classes.socialWrapper}>
+      <Box className={classes.socialButtonWrapper}>
         <LinkedinShareButton
           url={socialConfig.config.url}
           title={socialConfig.config.title}
@@ -72,7 +75,7 @@ const Share = ({ socialConfig, tags }: IShare) => {
           <LinkedinIcon size={32} round={true} />
         </LinkedinShareButton>
       </Box>
-      <Box className={classes.socialWrapper}>
+      <Box className={classes.socialButtonWrapper}>
         <RedditShareButton
           url={socialConfig.config.url}
           title={socialConfig.config.title}
