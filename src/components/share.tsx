@@ -2,7 +2,9 @@ import React from "react"
 
 import Box from "@material-ui/core/Box"
 
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles"
+
+import { useStaticQuery, graphql } from "gatsby"
 
 import {
   FacebookShareButton,
@@ -23,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down("xs")]: {
         margin: theme.spacing(1, 0, 0, 0),
       },
+      textAlign: "center",
     },
     socialButtonWrapper: {
       verticalAlign: "top",
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       "&:last-child": {
         marginRight: 0,
-      }
+      },
     },
     shareText: {
       marginRight: "15px",
@@ -46,39 +49,47 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Share = ({ socialConfig, tags }: IShare) => {
   const classes = useStyles()
+  const data = useStaticQuery(graphql`
+    query ShareQuery {
+      site {
+        siteMetadata {
+          title
+          siteUrl
+          twitter
+        }
+      }
+    }
+  `)
+
+  const url = `${data.site.siteMetadata.siteUrl}${socialConfig.relativePath}`
+  const twitter = data.site.siteMetadata.twitter.split("@").join("")
+
   return (
     <Box className={classes.root}>
-      <Box className={classes.shareText}>Share:</Box>
       <Box className={classes.socialButtonWrapper}>
-        <FacebookShareButton
-          url={socialConfig.config.url}
-          quote={socialConfig.config.title}
-        >
+        <FacebookShareButton url={url} quote={socialConfig.title}>
           <FacebookIcon size={32} round={true} />
         </FacebookShareButton>
       </Box>
       <Box className={classes.socialButtonWrapper}>
         <TwitterShareButton
-          url={socialConfig.config.url}
-          title={socialConfig.config.title}
-          via={socialConfig.twitter.split("@").join("")}
+          url={url}
+          title={socialConfig.title}
+          via={twitter}
           hashtags={tags}
         >
           <TwitterIcon size={32} round={true} />
         </TwitterShareButton>
       </Box>
       <Box className={classes.socialButtonWrapper}>
-        <LinkedinShareButton
-          url={socialConfig.config.url}
-          title={socialConfig.config.title}
-        >
+        <LinkedinShareButton url={url} title={socialConfig.title}>
           <LinkedinIcon size={32} round={true} />
         </LinkedinShareButton>
       </Box>
       <Box className={classes.socialButtonWrapper}>
         <RedditShareButton
-          url={socialConfig.config.url}
-          title={socialConfig.config.title}
+          url={url}
+          title={socialConfig.title}
           windowWidth={660}
           windowHeight={460}
         >

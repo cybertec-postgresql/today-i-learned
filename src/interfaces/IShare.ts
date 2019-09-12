@@ -1,10 +1,7 @@
 export default interface IShare {
   socialConfig: {
-    twitter: string
-    config: {
-      url: string
-      title: string
-    }
+    relativePath: string
+    title: string
   }
   tags: string[]
 }

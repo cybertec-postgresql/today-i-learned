@@ -34,9 +34,7 @@ interface IPostPageProps {
     }
     site: {
       siteMetadata: {
-        title: string
         siteUrl: string
-        twitter: string
       }
     }
   }
@@ -69,11 +67,8 @@ const PostPage = ({ data }: IPostPageProps) => {
 
   const share: IShare = {
     socialConfig: {
-      twitter: data.site.siteMetadata.twitter,
-      config: {
-        url: `${siteUrl}${post.slug}`,
-        title: post.title,
-      },
+      relativePath: post.slug,
+      title: post.title,
     },
     tags: post.tags,
   }
@@ -219,9 +214,7 @@ export const query = graphql`
     }
     site {
       siteMetadata {
-        title
         siteUrl
-        twitter
       }
     }
   }
