@@ -7,10 +7,6 @@
     "@material-ui/core": "^4.4.1",
     "@material-ui/icons": "^4.4.1",
     "@material-ui/styles": "^4.4.1",
-    "@types/node": "^12.7.2",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-helmet": "^5.0.9",
     "gatsby": "2.15.0",
     "gatsby-link": "^2.2.5",
     "gatsby-plugin-feed": "^2.3.7",
@@ -37,6 +33,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
+    "react-share": "^3.0.1",
     "typeface-roboto": "^0.0.75"
   },
   "keywords": [
@@ -53,6 +50,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@types/node": "^12.7.2",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-helmet": "^5.0.9",
+    "@types/react-share": "^3.0.0",
     "gh-pages": "^2.1.1",
     "prettier": "^1.8.2",
     "tslint": "^5.18.0",

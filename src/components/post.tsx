@@ -8,6 +8,9 @@ import { Link } from "gatsby"
 import { Grid, Divider } from "@material-ui/core"
 import Chip from "@material-ui/core/Chip"
 
+import Share from "./share"
+import IShare from "../interfaces/IShare"
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -52,11 +55,20 @@ const useStyles = makeStyles((theme: Theme) =>
     tagGrid: {
       display: "flex",
       flexWrap: "wrap",
+      [theme.breakpoints.down("xs")]: {
+        justifyContent: "center",
+      }
     },
   })
 )
 
-const Post = ({ post }: { post: IPost }) => {
+const Post = ({
+  post,
+  share: { socialConfig, tags },
+}: {
+  post: IPost
+  share: IShare
+}) => {
   const classes = useStyles()
 
   if (typeof post.date === "string") {
@@ -107,6 +119,9 @@ const Post = ({ post }: { post: IPost }) => {
                 />
               )
             })}
+          </Grid>
+          <Grid item={true}>
+            <Share socialConfig={socialConfig} tags={tags} />
           </Grid>
           <Grid item className={classes.footerAuthor}>
             Written by{" "}

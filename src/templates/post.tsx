@@ -5,6 +5,7 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles"
 
 import IPost from "../interfaces/IPost"
 import IAuthor from "../interfaces/IAuthor"
+import IShare from "../interfaces/IShare"
 
 import Container from "@material-ui/core/Container"
 import Layout from "../components/layout"
@@ -35,6 +36,7 @@ interface IPostPageProps {
       siteMetadata: {
         title: string
         siteUrl: string
+        twitter: string
       }
     }
   }
@@ -64,6 +66,17 @@ const PostPage = ({ data }: IPostPageProps) => {
   }
 
   const siteUrl = data.site.siteMetadata.siteUrl
+
+  const share: IShare = {
+    socialConfig: {
+      twitter: data.site.siteMetadata.twitter,
+      config: {
+        url: `${siteUrl}${post.slug}`,
+        title: post.title,
+      },
+    },
+    tags: post.tags,
+  }
 
   const classes = useStyles()
 
@@ -156,7 +169,7 @@ const PostPage = ({ data }: IPostPageProps) => {
         </script>
       </Helmet>
       <Container maxWidth="md">
-        <Post post={post} />
+        <Post post={post} share={share} />
       </Container>
       <Container maxWidth="md">
         <Paper className={classes.utterances} component="article" elevation={1}>
@@ -208,6 +221,7 @@ export const query = graphql`
       siteMetadata {
         title
         siteUrl
+        twitter
       }
     }
   }
