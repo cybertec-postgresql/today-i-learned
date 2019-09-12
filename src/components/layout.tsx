@@ -57,18 +57,22 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      minHeight: "100vh",
+      minHeight: "calc(100vh - 64px)",
       position: "relative",
+      [theme.breakpoints.down("sm")]: {
+        minHeight: "calc(100vh - 96px)",
+      },
     },
     footer: {
       backgroundColor: theme.palette.secondary.dark,
       color: theme.palette.secondary.contrastText,
       position: "absolute",
-      bottom: "0",
+      bottom: "-64px",
       width: "100%",
       padding: theme.spacing(0, 2),
-      [theme.breakpoints.down("xs")]: {
+      [theme.breakpoints.down("sm")]: {
         justifyContent: "center",
+        bottom: "-96px",
       },
     },
     footerLink: {
@@ -295,7 +299,7 @@ const Layout = ({ children }: { children: any }) => {
             </Grid>
           </Toolbar>
         </AppBar>
-        <Box paddingBottom="32px">{children}</Box>
+        <Box>{children}</Box>
         <Grid container className={classes.footer} component="footer">
           {footerLinks.map(item => {
             const L = (props: any) =>
