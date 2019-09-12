@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightBold,
       cursor: "pointer",
       margin: theme.spacing(0.5),
+      borderRadius: theme.spacing(0.5),
     },
     footerDivider: {
       margin: theme.spacing(3, 0),
@@ -119,7 +120,8 @@ const Post = ({
                   key={tag}
                   size="small"
                   label={tag}
-                  color="primary"
+                  color="secondary"
+                  variant="outlined"
                   className={classes.postTag}
                 />
               )
