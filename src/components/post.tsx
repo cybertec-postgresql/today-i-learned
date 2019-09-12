@@ -52,12 +52,17 @@ const useStyles = makeStyles((theme: Theme) =>
         flexDirection: "column",
       },
     },
+    footerRight: {
+      [theme.breakpoints.down("xs")]: {
+        justifyContent: "center",
+      },
+    },
     tagGrid: {
       display: "flex",
       flexWrap: "wrap",
       [theme.breakpoints.down("xs")]: {
         justifyContent: "center",
-      }
+      },
     },
   })
 )
@@ -104,7 +109,7 @@ const Post = ({
           alignItems="center"
           className={classes.footer}
         >
-          <Grid item className={classes.tagGrid}>
+          <Grid item className={classes.tagGrid} md={4}>
             {post.tags.map(tag => {
               return (
                 <Chip
@@ -120,17 +125,25 @@ const Post = ({
               )
             })}
           </Grid>
-          <Grid item={true}>
-            <Share socialConfig={socialConfig} tags={tags} />
-          </Grid>
-          <Grid item className={classes.footerAuthor}>
-            Written by{" "}
-            <Link
-              to={`/author/${post.author.name}`}
-              className={classes.footerLink}
-            >
-              {post.author.name}
-            </Link>
+          <Grid
+            item
+            container
+            justify="space-between"
+            alignItems="center"
+            className={classes.footerRight}
+            md={8}
+          >
+            <Grid item md={6} xs={12}>
+              <Share socialConfig={socialConfig} tags={tags} />
+            </Grid>
+            <Grid item className={classes.footerAuthor}>
+              <Link
+                to={`/author/${post.author.name}`}
+                className={classes.footerLink}
+              >
+                {post.author.name}
+              </Link>
+            </Grid>
           </Grid>
         </Grid>
       </footer>
