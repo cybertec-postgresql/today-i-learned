@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "inline-block",
       marginRight: "15px",
       textAlign: "center",
+      cursor: "pointer",
       "&:last-child": {
         marginRight: 0,
       },
