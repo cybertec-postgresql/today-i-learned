@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(0),
     },
     link: {
-      textDecoration: "none",
+      textDecoration: "underline",
+      color: "inherit",
       fontWeight: theme.typography.fontWeightBold,
     },
     hidden: {
