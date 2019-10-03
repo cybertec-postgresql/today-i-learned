@@ -77,9 +77,7 @@ const Post = ({
 }) => {
   const classes = useStyles()
 
-  if (typeof post.date === "string") {
-    post.date = new Date(post.date)
-  }
+  const date = new Date(post.date).toISOString().split("T")[0]
 
   return (
     <Paper className={classes.root} component="article" elevation={1}>
@@ -95,7 +93,7 @@ const Post = ({
           align="center"
           className={classes.postDate}
         >
-          {post.date.toLocaleDateString()}
+          {date}
         </Typography>
       </header>
       <div
