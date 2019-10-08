@@ -13,11 +13,17 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 }
 
 exports.createPages = async function({ actions, graphql }) {
+  const { createPage, createRedirect } = actions
+
   const { data } = await graphql(`
     query {
       allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/posts/" } }) {
         edges {
           node {
+            frontmatter {
+              date(formatString: "YYYY-MM-DD")
+              redirectionDate: date(formatString: "YYYY-M-DD")
+            }
             fields {
               slug
             }
@@ -73,7 +79,7 @@ exports.createPages = async function({ actions, graphql }) {
   const numPages = Math.ceil(posts.length / postsPerPage)
 
   Array.from({ length: numPages }).forEach((_, i) => {
-    actions.createPage({
+    createPage({
       path: i === 0 ? "/" : `/posts/${i + 1}`,
       component: require.resolve(`./src/templates/posts.tsx`),
       context: {
@@ -87,10 +93,19 @@ exports.createPages = async function({ actions, graphql }) {
 
   data.allMarkdownRemark.edges.forEach(edge => {
     const slug = edge.node.fields.slug
-    actions.createPage({
+    createPage({
       path: slug,
       component: require.resolve(`./src/templates/post.tsx`),
       context: { slug: slug },
+    })
+
+    const { date, redirectionDate } = edge.node.frontmatter
+
+    createRedirect({
+      fromPath: slug.replace(date, redirectionDate),
+      toPath: slug,
+      isPermanent: true,
+      redirectInBrowser: true,
     })
   })
 
@@ -100,7 +115,7 @@ exports.createPages = async function({ actions, graphql }) {
     const tagname = tag.fieldValue
 
     Array.from({ length: numPages }).forEach((_, i) => {
-      actions.createPage({
+      createPage({
         path: `/tag/${tagname}` + (i === 0 ? `` : `/${i + 1}`),
         component: require.resolve(`./src/templates/tag.tsx`),
         context: {
@@ -129,7 +144,7 @@ exports.createPages = async function({ actions, graphql }) {
     }
 
     Array.from({ length: numPages }).forEach((_, i) => {
-      actions.createPage({
+      createPage({
         path: `/author/${author.name}` + (i === 0 ? `` : `/${i + 1}`),
         component: require.resolve(`./src/templates/author.tsx`),
         context: {
