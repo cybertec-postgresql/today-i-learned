@@ -90,6 +90,10 @@ const PostPage = ({ data }: IPostPageProps) => {
           content={post.description ? post.description : post.excerpt}
         />
         <meta name="twitter:creator" content={post.author.twitter} />
+        <meta
+          name="twitter:image"
+          content="https://til.cybertec-postgresql.com/icons/icon-512x512.png"
+        />
 
         {/* <!-- Open Graph data --> */}
         <meta property="og:title" content={post.title} />
@@ -98,6 +102,10 @@ const PostPage = ({ data }: IPostPageProps) => {
         <meta
           property="og:description"
           content={post.description ? post.description : post.excerpt}
+        />
+        <meta
+          property="og:image"
+          content="https://til.cybertec-postgresql.com/icons/icon-512x512.png"
         />
         <meta
           property="article:published_time"
@@ -136,7 +144,8 @@ const PostPage = ({ data }: IPostPageProps) => {
                   "height": 512
                 }
               },
-              "datePublished": "${post.date.toISOString()}"
+              "datePublished": "${post.date.toISOString()}",
+              "image": "http://til.cybertec-postgresql.com/icons/icon-512x512.png"
             }`}
         </script>
 
@@ -159,7 +168,7 @@ const PostPage = ({ data }: IPostPageProps) => {
                 "name": "${post.title}",
                 "item": "${siteUrl + post.slug}"
                }
-              ]
+              ],
             }`}
         </script>
       </Helmet>
