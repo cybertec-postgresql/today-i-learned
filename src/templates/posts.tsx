@@ -14,6 +14,7 @@ interface IPostsPageProps {
           frontmatter: {
             title: string
             date: string
+            formattedDate: string
             author: IAuthor
             tags: string[]
             description: string | undefined
@@ -53,6 +54,7 @@ const PostsPage = ({
       title: post.node.frontmatter.title,
       wordCount: post.node.wordCount.words,
       date: new Date(post.node.frontmatter.date),
+      formattedDate: post.node.frontmatter.formattedDate,
       description: post.node.frontmatter.description,
       tags: post.node.frontmatter.tags,
       author: post.node.frontmatter.author,
@@ -90,6 +92,7 @@ export const postPageQuery = graphql`
           frontmatter {
             title
             date
+            formattedDate: date(formatString: "YYYY-MM-DD")
             author {
               name
               email

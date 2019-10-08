@@ -77,7 +77,7 @@ const Post = ({
 }) => {
   const classes = useStyles()
 
-  const date = new Date(post.date).toISOString().split("T")[0]
+  const date = post.formattedDate
 
   return (
     <Paper className={classes.root} component="article" elevation={1}>
