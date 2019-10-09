@@ -19,6 +19,7 @@ interface IPostPageProps {
       frontmatter: {
         title: string
         date: string
+        formattedDate: string
         author: IAuthor
         tags: string[]
         description: string | undefined
@@ -59,6 +60,7 @@ const PostPage = ({ data }: IPostPageProps) => {
     description: data.markdownRemark.frontmatter.description,
     tags: data.markdownRemark.frontmatter.tags,
     date: new Date(data.markdownRemark.frontmatter.date),
+    formattedDate: data.markdownRemark.frontmatter.formattedDate,
     author: data.markdownRemark.frontmatter.author,
     slug: data.markdownRemark.fields.slug,
   }
@@ -205,6 +207,7 @@ export const query = graphql`
       frontmatter {
         title
         date
+        formattedDate: date(formatString: "YYYY-MM-DD")
         author {
           name
           email

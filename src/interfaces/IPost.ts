@@ -9,5 +9,6 @@ export default interface IPost {
   description?: string
   tags: string[]
   date: Date
+  formattedDate: string
   slug: string
 }
