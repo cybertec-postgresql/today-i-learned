@@ -170,7 +170,7 @@ const PostPage = ({ data }: IPostPageProps) => {
                 "name": "${post.title}",
                 "item": "${siteUrl + post.slug}"
                }
-              ],
+              ]
             }`}
         </script>
       </Helmet>
