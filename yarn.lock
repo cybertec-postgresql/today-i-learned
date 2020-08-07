@@ -10247,10 +10247,10 @@ prismjs-github@^1.0.0:
   resolved "https://registry.yarnpkg.com/prismjs-github/-/prismjs-github-1.0.0.tgz#e2eeae00d7e65cfd6c95934c25d81b2d58ea2887"
   integrity sha512-viBNgmYXllsWaLMvyiEC+g0hFagYd/r1Rvz2iYFt7tkx6Jv+PpQ5k93npV5sZD25Amu3Sl5lj8Mft0mUF+i/KA==
 
-prismjs@^1.17.1:
-  version "1.17.1"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.17.1.tgz#e669fcbd4cdd873c35102881c33b14d0d68519be"
-  integrity sha512-PrEDJAFdUGbOP6xK/UsfkC5ghJsPJviKgnQOoxaDbBjwc8op68Quupwt1DeAFoG8GImPhiKXAvvsH7wDSLsu1Q==
+prismjs@^1.21.0:
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.21.0.tgz#36c086ec36b45319ec4218ee164c110f9fc015a3"
+  integrity sha512-uGdSIu1nk3kej2iZsLyDoJ7e9bnPzIgY0naW/HdknGj61zScaprVEVGHrPoXqI+M9sP0NDnTK2jpkvmldpuqDw==
   optionalDependencies:
     clipboard "^2.0.0"
 
